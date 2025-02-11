@@ -1,0 +1,3 @@
+If there is no db-credentials.env file here then please download it or a template to fill in 
+from the google drive "database" folder. It's not secure to use git to store credentials.
+Sorry
