@@ -20,9 +20,20 @@ $controller = Controllers/[controller name w/ first letter capitalised]Controlle
 E.g. Controllers/HomeController.php
 
 $action = [action (method) name] E.g. index
+=============================================================================
+SPECIAL CASE FOR HOSTING ON MANCHESTER UNIVERSITY HOSTING SERVICE
+
+If the following code detects that the host is web.cs.manchester.ac.uk, then the first two
+parts of the uri will be discarded
+
+This assumes that the repository is hosted on a subdirectory instead of being on the root of
+whoever's hosting the website
 */
 if (!empty($requestUri)) {
     $uriParts = explode('/', $requestUri);
+    if ($httpHost == 'web.cs.manchester.ac.uk') {
+        array_splice($uriParts, 0, 2);
+    }
     if (count($uriParts) >= 1) {
         $controller = 'Controllers/' . ucfirst($uriParts[0]) . 'Controller.php';
         if (count($uriParts) >= 2) {
