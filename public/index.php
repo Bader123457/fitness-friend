@@ -3,6 +3,8 @@
 define('SRC_PATH', __DIR__ . '/../src/');
 
 $requestUri = substr($_SERVER['REQUEST_URI'], 1);
+$httpHost = $_SERVER['HTTP_HOST'];
+echo $httpHost;
 
 // Default controllers and actions for when they are undefined
 $controller = 'Controllers/HomeController.php';
