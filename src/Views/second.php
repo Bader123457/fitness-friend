@@ -8,6 +8,6 @@
 <body>
     <h1>Welcome to Website 2</h1>
     <p>Click the button below to go to Website 1:</p>
-    <button onclick="window.location.pathname = '/home';">Go to Website 1</button>
+    <button onclick="window.location.pathname = <?php echo $home_uri; ?>;">Go to Website 1</button>
 </body>
 </html>

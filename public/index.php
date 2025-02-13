@@ -4,11 +4,12 @@ define('SRC_PATH', __DIR__ . '/../src/');
 
 $requestUri = substr($_SERVER['REQUEST_URI'], 1);
 $httpHost = $_SERVER['HTTP_HOST'];
-echo $httpHost;
 
 // Default controllers and actions for when they are undefined
+// baseUri adds fixed subdirectory parts to the front of any redirect links (if there are any)
 $controller = 'Controllers/HomeController.php';
 $action = 'index';
+$baseUri = '';
 
 /* 
 Read the URL to find the associated controller and action to be run
@@ -32,11 +33,13 @@ whoever's hosting the website
 if (!empty($requestUri)) {
     $uriParts = explode('/', $requestUri);
     if ($httpHost == 'web.cs.manchester.ac.uk') {
+        $baseUri = array($uriParts[0], $uriParts[1]);
         array_splice($uriParts, 0, 2);
     }
-    var_dump($uriParts);
     if (count($uriParts) >= 1) {
-        $controller = 'Controllers/' . ucfirst($uriParts[0]) . 'Controller.php';
+        if ($uriParts[0] != "") {
+            $controller = 'Controllers/' . ucfirst($uriParts[0]) . 'Controller.php';
+        }
         if (count($uriParts) >= 2) {
             $action = $uriParts[1];
         }
@@ -56,6 +59,7 @@ if (file_exists($controllerPath)) {
 
     if (class_exists($controllerClass)) {
         $controllerInstance = new $controllerClass();
+        $controllerInstance->appendUri = $baseUri;
         if (method_exists($controllerInstance, $action)) {
             $controllerInstance->$action();
         } else {
