@@ -34,7 +34,7 @@ if (!empty($requestUri)) {
     if ($httpHost == 'web.cs.manchester.ac.uk') {
         array_splice($uriParts, 0, 2);
     }
-    echo $uriParts;
+    var_dump($uriParts);
     if (count($uriParts) >= 1) {
         $controller = 'Controllers/' . ucfirst($uriParts[0]) . 'Controller.php';
         if (count($uriParts) >= 2) {
