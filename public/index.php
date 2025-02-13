@@ -33,7 +33,7 @@ whoever's hosting the website
 if (!empty($requestUri)) {
     $uriParts = explode('/', $requestUri);
     if ($httpHost == 'web.cs.manchester.ac.uk') {
-        $baseUri = array($uriParts[0], $uriParts[1]);
+        $baseUri = '/' . $uriParts[0] . '/' . $uriParts[1];
         array_splice($uriParts, 0, 2);
     }
     if (count($uriParts) >= 1) {
