@@ -6,7 +6,8 @@ $requestUri = substr($_SERVER['REQUEST_URI'], 1);
 $httpHost = $_SERVER['HTTP_HOST'];
 
 // Default controllers and actions for when they are undefined
-// baseUri adds fixed subdirectory parts to the front of any redirect links (if there are any)
+// baseUri adds fixed parts of the URI to the front of any redirect links
+// (if there are any, else keep it as empty string)
 $controller = 'Controllers/HomeController.php';
 $action = 'index';
 $baseUri = '';
@@ -21,11 +22,19 @@ $controller = Controllers/[controller name w/ first letter capitalised]Controlle
 E.g. Controllers/HomeController.php
 
 $action = [action (method) name] E.g. index
-=============================================================================
+==============================================================================================
 SPECIAL CASE FOR HOSTING ON MANCHESTER UNIVERSITY HOSTING SERVICE
 
 If the following code detects that the host is web.cs.manchester.ac.uk, then the first two
-parts of the uri will be discarded
+parts of the uri will be removed from uriParts and baseUri will be constructed
+
+e.g. 
+Before:
+URI = /p14930yp/fitness_bro_test/home
+
+After:
+baseUri = /p14930yp/fitness_bro_test (the part that depends on who's hosting the website)
+uriParts = array('home') (The actual requests)
 
 This assumes that the repository is hosted on a subdirectory instead of being on the root of
 whoever's hosting the website
