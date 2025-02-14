@@ -28,6 +28,7 @@
             } catch (PDOException $e) {
                 //This error checking is for development and should be removed in the final solution
                 echo "Error connecting to the database: " . $e->getMessage();
+                exit(1);
             }
             return $db;
         }
