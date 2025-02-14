@@ -16,11 +16,13 @@
         //EXAMPLE:
         //DBConnection::create("INSERT INTO account_data (email, username, id) VALUES (:email, :username, :id)" , ["testEmail@mail.com", "TestUsername", 123123], [":email", ":username", ":id"]);
         private static function dbConnect() {
+            //Update the connection constants to being the values in the db-credentials.env file
             require_once "db-credential-extraction.php";
             self::$servername = $env["SERVER_NAME"];
             self::$username = $env["USERNAME"];
             self::$password = $env["PASSWORD"];
             self::$dbname = $env["DB_NAME"];
+            
             try {
                 //get the db object and set error mode
                 $db = new PDO("mysql:host=" . self::$servername . ";dbname=" . self::$dbname . ";charset=" . self::$charset, self::$username, self::$password);
