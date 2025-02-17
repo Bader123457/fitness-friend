@@ -1,10 +1,10 @@
 <?php
-class SecondController {
+class RegisterController {
     public $appendUri = '';
     public function index() {
         // Generate all redirect links
         $home_uri = '\'' . $this->appendUri . '/home' . '\'';
         // Load the view for the second website
-        require_once __DIR__ . '/../Views/second.php';
+        require_once __DIR__ . '/../Views/register.php';
     }
 }
