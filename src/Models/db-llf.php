@@ -39,6 +39,8 @@
             //The $bound_parameters are the variables that you wish to insert
             //The $parameter_aliases are the locations where each parameter will be inserted
             //This protects againt SQL injection and so it is not always necessary. If you don't want to use a bound parameter then only enter an SQL Statement
+            //Example: 
+            //DBConnection::read("SELECT passHashed FROM account_data WHERE email = 'elliotbeeholbrook@gmail.com'");
         public static function create($sql, $bound_parameters = [], $parameter_aliases = []) {
             $stmt = self::dbConnect()->prepare($sql);
             //This is likely to be an INSERT INTO statement so it will probably need multiple bound parameters.
@@ -50,7 +52,9 @@
             unset($db);
         }
 
-        //This method will take care of all the other annoying parts of getting data from the database.
+        //This method will take care of all the other annoying parts of getting data from the database. For example, now we can use 
+        //$username = DBConnection->read("SELECT username FROM account_data WHERE id = :parameter" , $id);
+        //rather than having to prepare the statement and bind the parameter and all that nonesense.
         public static function read($sql, $bound_parameters = [], $parameter_aliases = []) {
             $stmt = self::dbConnect()->prepare($sql);
             for ($i = 0; $i < min(count($bound_parameters), count($parameter_aliases)); $i++) {
