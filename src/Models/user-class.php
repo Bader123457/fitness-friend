@@ -68,7 +68,7 @@
                 $this->dob = $dob;
                 $this->activity_level = $activity_level;
                 $this->body_fat_percent = $body_fat_percent;
-                $this->weight_preference;
+                $this->weight_preference = $weight_preference;
 
                 //hash and delete password automatically if required
                 if($password !== "") {
@@ -115,7 +115,7 @@
                     if((strlen(string: $value) > 32) || (strlen(string: $value)) < 2) {
                         throw new InvalidArgumentException(message: "Last Name must be less than 32 characters long and more than 1 character long");
                     }
-                    $this->username = $value;
+                    $this->first_name = $value;
                     break;
 //Password Validation
                 case "password":
@@ -140,7 +140,7 @@
                     if (preg_match(pattern: '/[^\x20-\x7E]/', subject: $value)) {
                         throw new InvalidArgumentException(message: "Password contains invalid Unicode characters.");
                     }
-                    $this->password_checksum = password_hash(password: PASSWORD_DEFAULT, algo: $value);
+                    $this->password_checksum = password_hash(password: $value, algo: PASSWORD_DEFAULT);
                     break;
 //Height Validation
                 case "height":
