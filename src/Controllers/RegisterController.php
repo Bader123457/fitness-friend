@@ -13,6 +13,7 @@ class RegisterController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             var_dump($_POST);
             $username = $_POST['uname'];
+            $email = $_POST['email'];
             $password = $_POST['psw'];
             $confirm_password = $_POST['cnfm-psw'];
             // Add validate function here
