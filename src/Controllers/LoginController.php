@@ -1,4 +1,6 @@
 <?php
+
+require_once __DIR__ . "/../Models/user-class.php";
 class LoginController {
     public $appendUri = '';
     public function index() {
@@ -14,7 +16,12 @@ class LoginController {
             var_dump($_POST);
             $username = $_POST['uname'];
             $password = $_POST['psw'];
-            // Add validate function here
+            $user = User::getUser(username: $username);
+            if($user->validatePassword($password)) {
+                echo "<br>valid";
+            } else {
+                echo "<br>not valid";
+            }
             // Add session here
         } else {
             header('Location: '. $login_uri);
