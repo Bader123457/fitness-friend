@@ -1,6 +1,6 @@
 # Change Log
 
-## [20/02/2025] Made Login and Register controllers handle POST request
+## [20/02/2025] Added ability for Login and Register controllers to handle POST request
 
 ### Added
 
