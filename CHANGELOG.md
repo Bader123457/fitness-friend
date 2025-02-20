@@ -1,5 +1,30 @@
 # Change Log
 
+## [20/02/2025] Made Login and Register controllers handle POST request
+
+### Added
+
+- Added the ability for Login and Register controllers to read and handle POST requests from the login and register websites.
+    - The actual login verification and user registration part is not in place yet
+
+## [18/02/2025] Added User class and DBConnection class (Thanks Elliot)
+
+### Added
+
+- Added User class
+    - Use the User class to store user information in session data
+- Added DBConnection class
+    - The DBConnection class manages all conections to the database
+    - The DBConnection class also contains a couple of functions that automates the creation and execution of prepared statements
+    - Database credentials are stored in config/db-credentials.env, which **CANNOT** be stored in this repositiory for security reasons. Get the credentials from the database folder in the shared Google Drive instead
+- Added .gitignore to never save db-credentials.env into repo
+
+## [17/02/2025] Added Login and Register pages
+
+### Added
+
+- Added placeholder login page, register page and their corresponding controllers in preparation for adding login and register functions to the website
+
 ## [13/02/2025] Modified index.php and all redirect links to work when hosting on web.cs.manchester.ac.uk
 
 ### Fixed
