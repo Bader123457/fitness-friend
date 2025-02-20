@@ -85,7 +85,7 @@
                 //assign a new user_id if required
                 if(!isset($user_id)) {
                     do {
-                        $generated_user_id = random_int(100000000000, 999999999999);
+                        $generated_user_id = random_int(10000000, 99999999);
                     } while ($this->checkIDInDB($generated_user_id));
                     $this->user_id = $generated_user_id;
                 } else {
