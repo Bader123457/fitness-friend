@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Register</h1>
-    <form action="action_page.php" method="post">
+    <form action=<?php echo $validate_uri; ?> method="POST">
         <div class="container">
             <label for="uname"><b>Username</b></label>
             <input type="text" placeholder="Enter Username" name="uname" required>
@@ -24,10 +24,9 @@
             <input type="checkbox" checked="checked" name="remember"> Remember me
             </label>
         </div>
-
-        <div class="container" style="background-color:#f1f1f1">
-            <button onclick="window.location.pathname = <?php echo $home_uri; ?>;">Cancel</button>
-        </div>
-</form>
+    </form>
+    <div class="container" style="background-color:#f1f1f1">
+        <button onclick="window.location.pathname = <?php echo $home_uri; ?>;">Cancel</button>
+    </div>
 </body>
 </html>
