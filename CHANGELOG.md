@@ -1,6 +1,6 @@
 # Change Log
 
-##[20/02/2025] Hooked up the back end Login and Register functions to front end POST request
+## [20/02/2025] Hooked up the back end Login and Register functions to front end POST request
 
 ### Added
 
