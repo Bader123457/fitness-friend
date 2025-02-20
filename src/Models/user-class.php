@@ -66,7 +66,6 @@
                 $this->__set("username", $username);
                 $this->__set("first_name", $first_name);
                 $this->__set("last_name", $last_name);
-                $this->__set("password_checksum", $password_checksum);
                 $this->__set("height", $height);
                 $this->__set("weight", $weight);
                 $this->__set("gender", $gender);
@@ -77,9 +76,9 @@
 
                 //hash and delete password automatically if required
                 if(isset($password)) {
-                    $this->__set("password", $password);    //making sure it is validated
-                    $this->password_checksum = password_hash($this->password, PASSWORD_DEFAULT);
-                    $this->password = "";
+                    $this->__set("password", $password);    //this auto updates the password checksum
+                } else {
+                    $this->password_checksum = $password_checksum;
                 }
 
                 //assign a new user_id if required
@@ -246,7 +245,7 @@
             );
         }
 
-        function validatePassword($password): bool {
+        function validatePassword($password) {
             //will check that the entered password is correct for this account
             return password_verify($password, $this->password_checksum);
         }
