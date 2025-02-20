@@ -12,6 +12,9 @@
             <label for="uname"><b>Username</b></label>
             <input type="text" placeholder="Enter Username" name="uname" required>
 
+            <label for="email"><b>E-mail</b></label>
+            <input type="text" placeholder="Enter E-mail" name="email" required>
+
             <label for="psw"><b>Password</b></label>
             <input type="password" placeholder="Enter Password" name="psw" required>
 
