@@ -1,5 +1,20 @@
 # Change Log
 
+##[20/02/2025] Hooked up the back end Login and Register functions to front end POST request
+
+### Added
+
+- Added functions for validating credentials
+    - User objects have the validatePassword function which takes one argument and returns whether that is the correct password for the user
+    - User::checkIDInDB() is a static function that returns True if the ID is in use in the database and False otherwise
+
+### Changed
+
+- Moved the user-db functions into the user class
+    - User::getUser() is a static function that can take any of the three unique identifiers and return the user object relating to that user.
+    - $user->saveToDB() is a function that updates the database so that the DB user has the same parameters as the object user
+
+
 ## [20/02/2025] Added ability for Login and Register controllers to handle POST request
 
 ### Added
