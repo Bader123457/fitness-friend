@@ -18,8 +18,6 @@ class RegisterController {
             $email = $_POST['email'];
             $password = $_POST['psw'];
             $confirm_password = $_POST['cnfm-psw'];
-            
-            $email = /*$_POST['email']*/ "a@b.c"; //please remove the "a@b.c" when the email feature has been fixed
 
             if($password != $confirm_password) {
                 //confirm password not the same
