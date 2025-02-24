@@ -288,22 +288,26 @@
             }
     
             try {
-                $user =  new User(
-                    user_id: $userData["user_id"],
-                    username: $userData["username"],
-                    email: $userData["email"],
-                    first_name: $userData["first_name"],
-                    last_name: $userData["last_name"],
-                    password_checksum: $userData["password"],
-                    height: $userData["height"],
-                    weight: $userData["weight"],
-                    gender: $userData["gender"],
-                    dob: $userData["dob"],
-                    activity_level: $userData["activity_level"],
-                    body_fat_percent: $userData["body_fat_percent"],
-                    weight_preference: $userData["weight_preference"],
-                );
-    
+                if ($userData === False){
+                    throw new ErrorException(message: "Database returned no values");
+                } else {
+                    $user =  new User(
+                        user_id: $userData["user_id"],
+                        username: $userData["username"],
+                        email: $userData["email"],
+                        first_name: $userData["first_name"],
+                        last_name: $userData["last_name"],
+                        password_checksum: $userData["password"],
+                        height: $userData["height"],
+                        weight: $userData["weight"],
+                        gender: $userData["gender"],
+                        dob: $userData["dob"],
+                        activity_level: $userData["activity_level"],
+                        body_fat_percent: $userData["body_fat_percent"],
+                        weight_preference: $userData["weight_preference"],
+                    );
+                }
+                
                 return $user;
             } catch (Exception $e) {
                 throw new ErrorException(message: "Database Contains Invalid Data in Record: $user_id");
