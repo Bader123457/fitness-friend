@@ -10,7 +10,7 @@ class LoginController {
 
         // Check if error messages need to be displayed
         $error_display = False;
-        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+        if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET['error'])) {
             $error_display = True;
             $error_type = $_GET['error'];
             $error_msg = "";
@@ -26,7 +26,7 @@ class LoginController {
                     $error_msg = $error_type;
             }
         }
-        
+
         // Load the view for the second website
         require_once __DIR__ . '/../Views/login.php';
     }

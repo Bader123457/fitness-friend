@@ -46,6 +46,15 @@ if (!empty($requestUri)) {
         array_splice($uriParts, 0, 2);
     }
     if (count($uriParts) >= 1) {
+        // Remove GET values from links
+        for ($i = 0; $i < count($uriParts); $i++) {
+            $part = $uriParts[$i];
+            if (strpos($part, '?') !== False) {
+                $part = explode('?', $part)[0];
+                $uriParts[$i] = $part;
+            }
+        }
+        // Construct path to controllers and functions
         if ($uriParts[0] != "") {
             $controller = 'Controllers/' . ucfirst($uriParts[0]) . 'Controller.php';
         }
