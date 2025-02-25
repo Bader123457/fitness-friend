@@ -8,7 +8,7 @@
 <body>
     <h1>Home Page / Landing Page</h1>
     <p>Waiting for frontend html</p>
-    <button onclick="window.location.pathname = <?php echo $login_uri; ?>;">Login</button>
-    <button onclick="window.location.pathname = <?php echo $register_uri; ?>;">Register</button>
+    <button onclick="window.location.href = <?php echo $login_uri; ?>;">Login</button>
+    <button onclick="window.location.href = <?php echo $register_uri; ?>;">Register</button>
 </body>
 </html>

@@ -25,7 +25,7 @@
 
     </form>
     <div class="container" style="background-color:#f1f1f1">
-        <button onclick="window.location.pathname = <?php echo $home_uri; ?>;">Cancel</button>
+        <button onclick="window.location.href = <?php echo $home_uri; ?>;">Cancel</button>
     </div>
 </body>
 </html>
