@@ -7,6 +7,7 @@
 </head>
 <body>
     <h1>Register</h1>
+    <?php if ($error_display === True) {include_once __DIR__ . '/error_msg_template.php';}?>
     <form action=<?php echo $validate_uri; ?> method="POST">
         <div class="container">
             <label for="uname"><b>Username</b></label>
