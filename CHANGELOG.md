@@ -23,6 +23,8 @@
 
 - Added new exception handling for if 'uname' and 'psw' is missing from the login POST request.
 - Login page now redirects user to Dashboard if they're already logged in
+- Changed all instance of 'window.location.pathname' to 'window.location.href'
+    - Previously, redirecting with 'window.location.pathname' preserves GET requests for some reason
 
 ## [24/02/2025] Added error message display for login page, fixed index.php breaking when GET values are added - Yi Xuan
 
