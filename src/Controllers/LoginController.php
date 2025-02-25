@@ -12,7 +12,7 @@ class LoginController {
             'samesite' => 'Strict' // Prevent CSRF attacks
         ]);
         session_start();
-        
+
         // Generate all redirect links
         $home_uri = '\'' . $this->appendUri . '/home' . '\'';
         $validate_uri = '\'' . $this->appendUri . '/login/validate' . '\'';
@@ -79,7 +79,7 @@ class LoginController {
                 die();
             }
 
-            // Try to get user and password, then validate
+            // Try to get user data from database, then validate
             try{
                 $user = User::getUser(username: $username);
                 if($user->validatePassword($password)) {
