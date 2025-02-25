@@ -1,10 +1,26 @@
 # Change Log
 
-## [25/02/2025] Added new exception handling for POST request errors - Yi Xuan
+## [25/02/2025] Session handling, Logout function, Dashboard page, New exception handling - Yi Xuan
+
+### Added
+
+- Added session handling for logged in users
+    - Session stores the values 'user' and 'logged_in', user being an instance of User class and logged_in being a boolean to confirm that the user logged in properly
+    - session_set_cookie_params have the following settings:
+        - 'lifetime' => 86400, // 1 day
+        - 'secure' => true,   // Only send over HTTPS
+        - 'httponly' => true,  // Prevent JavaScript access
+        - 'samesite' => 'Strict' // Prevent CSRF attacks
+- Added logout function to LoginController
+    - This function destroys session data before kicking user back to the home page
+- Added dashboard.php and DashboardController.php
+    - This page is only accessible when a session exists that says that the user is logged in
+    - The view dashboard.php is a placeholder, replace with frontend later
 
 ### Fixed
 
 - Added new exception handling for if 'uname' and 'psw' is missing from the login POST request.
+- Login page now redirects user to Dashboard if they're already logged in
 
 ## [24/02/2025] Added error message display for login page, fixed index.php breaking when GET values are added - Yi Xuan
 
