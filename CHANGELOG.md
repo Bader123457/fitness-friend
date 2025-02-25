@@ -1,5 +1,17 @@
 # Change Log
 
+## [24/02/2025] Added error message display for login page, fixed index.php breaking when GET values are added
+
+### Added
+
+- Added error message display for login page for:
+    - When the credentials is wrong
+    - When something went wrong while querying the database
+
+### Fixed
+
+- Fixed index.php not finding the correct controller when GET values are added to the URI link
+
 ## [20/02/2025] Hooked up the back end Login and Register functions to front end POST request
 
 ### Added
