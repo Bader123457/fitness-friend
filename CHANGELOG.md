@@ -1,6 +1,6 @@
 # Change Log
 
-## [25/02/2025] Session handling, Logout function, Dashboard page, New exception handling - Yi Xuan
+## [25/02/2025] Session handling, Register page error handling, Logout function, Dashboard page, New exception handling - Yi Xuan
 
 ### Added
 
@@ -16,6 +16,8 @@
 - Added dashboard.php and DashboardController.php
     - This page is only accessible when a session exists that says that the user is logged in
     - The view dashboard.php is a placeholder, replace with frontend later
+- Added error message display for Register page
+    - Same as login page
 
 ### Fixed
 
@@ -28,6 +30,7 @@
 
 - Added error message display for login page for:
     - When the credentials is wrong
+    - When the 'uname' and 'psw' is missing from POST
     - When something went wrong while querying the database
 
 ### Fixed
