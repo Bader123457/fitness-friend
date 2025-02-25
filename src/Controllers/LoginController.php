@@ -22,6 +22,9 @@ class LoginController {
                 case "database_error":
                     $error_msg = "Something went wrong with the login database. Please contact an administrator.";
                     break;
+                case "form_error":
+                    $error_msg = "Something went wrong with the login form. Please refresh your page or contact an administrator.";
+                    break;
                 default:
                     $error_msg = $error_type;
             }
@@ -34,23 +37,32 @@ class LoginController {
         $login_uri = $this->appendUri . '/login';
         // Handle validation
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $username = $_POST['uname'];
-            $password = $_POST['psw'];
-            // Try to get user and password, then compare
+            try {
+                $username = $_POST['uname'];
+                $password = $_POST['psw'];
+            } catch (Exception $e) {
+                header('Location: '. $login_uri. '?error=form_error');
+                die();
+            }
+
+            // Try to get user and password, then validate
             try{
                 $user = User::getUser(username: $username);
                 var_dump($user);
                 if($user->validatePassword($password)) {
                     echo "<br>valid";
+                    // Add session here
+                    
+                    // Redirect here
                 } else {
                     header('Location: '. $login_uri. '?error=credentials_error');
+                    die();
                 }
 
             } catch (Exception $e) {
                 header('Location: '. $login_uri. '?error=database_error');
+                die();
             }
-            
-            // Add session here
         } else {
             header('Location: '. $login_uri);
             die();
