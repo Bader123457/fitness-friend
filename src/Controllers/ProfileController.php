@@ -1,5 +1,5 @@
 <?php
-class DashboardController {
+class ProfileController {
     public $appendUri = '';
     public function index() {
         // Get session
@@ -13,18 +13,16 @@ class DashboardController {
 
         // Generate all redirect links
         $login_uri = $this->appendUri . '/login';
-        $logout_uri = '\''. $this->appendUri . '/login/logout'. '\'';
-        $profile_uri = '\''. $this->appendUri . '/profile'. '\'';
-
-        // Check user
+        $dashboard_uri = '\'' . $this->appendUri . '/dashboard' . '\'';
+        
+        // Load the view for the first website
         if (isset($_SESSION['user']) && $_SESSION['logged_in'] === true) {
             // Check user validity
             // Load the view for the first website
-            require_once __DIR__ . '/../Views/dashboard.php';
+            require_once __DIR__ . '/../Views/profile.php';
         } else {
             header('Location: '. $login_uri);
             die();
         }
-        
     }
 }
