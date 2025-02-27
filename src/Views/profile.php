@@ -16,6 +16,22 @@
     <hr>
 
     <h3>Edit Password</h3>
+    <form action=<?php echo $change_password_uri; ?>; method="POST">
+        <label for="old_psw"><b>Old Password</b></label>
+        <input type="password" placeholder="Enter Old Password" name="old_psw" required>
+        <br>
+
+        <label for="new_psw"><b>New Password</b></label>
+        <input type="password" placeholder="Enter New Password" name="new_psw" required>
+        <br>
+
+        <label for="conf_psw"><b>Confirm Password</b></label>
+        <input type="password" placeholder="Confirm New Password" name="conf_psw" required>
+        <br>
+        &nbsp; <br>
+
+        <button type="submit">Change Password</button>
+    </form>
     <hr>
 
     <h3>Edit Personal Information</h3>
