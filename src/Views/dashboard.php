@@ -13,5 +13,9 @@
     <button onclick="window.location.href = '';">Calorie Calculator</button>
     <button onclick="window.location.href = '';">Food Recommendation</button>
     <button onclick="window.location.href = '';">Workout Suggestion</button>
+    <hr>
+    <p>Username: <?php echo $_SESSION['user']->username; ?></p>
+    <p>Email: <?php echo $_SESSION['user']->email; ?></p>
+    <p>Name: <?php echo $_SESSION['user']->first_name . ' ' . $_SESSION['user']->last_name; ?></p>   
 </body>
 </html>

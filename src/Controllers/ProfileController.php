@@ -2,6 +2,9 @@
 class ProfileController {
     public $appendUri = '';
     public function index() {
+        // Include class
+        require_once __DIR__ . '/../Models/user-class.php';
+
         // Get session
         session_set_cookie_params([
             'lifetime' => 86400, // 1 day
@@ -17,7 +20,9 @@ class ProfileController {
         
         // Load the view for the first website
         if (isset($_SESSION['user']) && $_SESSION['logged_in'] === true) {
-            // Check user validity
+            // Refresh user information
+            $_SESSION['user'] = User::getUser(user_id: $_SESSION['user']->user_id);
+
             // Load the view for the first website
             require_once __DIR__ . '/../Views/profile.php';
         } else {
