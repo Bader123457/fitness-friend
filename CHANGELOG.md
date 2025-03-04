@@ -1,10 +1,11 @@
 # Change Log
 
-## [04/03/2025] Fixed wrong error display for Register page - Yi Xuan
+## [04/03/2025] Fixed wrong error display for Register page, Fixed button being swapped for Home page - Yi Xuan
 
 ### Fixed
 
 - When email/password does not fit requirements, Register page now display what requirements are not met instead of a generic Database error
+- The redirect links for Sign-In and Log-In button in Home page were swapped. This is fixed, and the Sign-In button has been renamed to Register to match the Register page
 
 ## [03/03/2025] Added Nutritionix API, Fixed URL requesting for assets being redirected to index.php - Yi Xuan, Badr
 
