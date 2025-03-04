@@ -176,8 +176,8 @@
     <div class="navbar">
         <img src="/assets/imgs/Logo.png" alt="Fitness Bro Logo" class="logo">
         <div class="nav-buttons">
-            <a onclick="window.location.href = <?php echo $login_uri; ?>;">Sign In</a>
-            <a onclick="window.location.href = <?php echo $register_uri; ?>;">Log In</a>
+            <a onclick="window.location.href = <?php echo $register_uri; ?>;">Register</a>
+            <a onclick="window.location.href = <?php echo $login_uri; ?>;">Log In</a>
         </div>
     </div>
 
@@ -185,7 +185,7 @@
     <div class="hero">
         <h1>Your Fitness Journey Starts Here</h1>
         <p>Train smarter, eat healthier, and transform your body.</p>
-        <a href="#" class="cta-button">Start Today</a>
+        <a href= <?php echo $register_uri; ?> class="cta-button">Start Today</a>
     </div>
 
     <!-- Call-To-Action Section -->
