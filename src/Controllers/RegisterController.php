@@ -71,10 +71,14 @@ class RegisterController {
                 //confirm password is the same
                 try {
                     $user = new User(user_id: null, username: $username, email: $email, password: $password);
-                    $user->saveToDB();
+                    try {
+                        $user->saveToDB();
+                    } catch (Exception $e) {
+                        header('Location: '. $register_uri. '?error=database_error');
+                        die();
+                    }
                 } catch (Exception $e) {
-                    header('Location: '. $register_uri. '?error=database_error');
-                    die();
+                    header('Location: '. $register_uri. '?error='. $e->getMessage());
                 }
                 
             }
