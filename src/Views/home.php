@@ -35,7 +35,7 @@
         }
 
         .navbar .logo {
-            width: 80px;
+            width: 180px;
         }
 
         .nav-buttons {
@@ -83,6 +83,13 @@
             background: url('/assets/imgs/gymphoto.jpeg') no-repeat center center/cover;
             opacity: 0.2; /* 20% opacity */
             z-index: 1;
+        }
+
+        .hero .logo {
+            width:500px;
+            position:relative;
+            left:26px;
+            z-index:2;
         }
 
         .hero h1 {
@@ -174,7 +181,7 @@
 <body>
     <!-- Navigation Bar (Dashboard) -->
     <div class="navbar">
-        <img src="/assets/imgs/Logo.png" alt="Fitness Bro Logo" class="logo">
+        <img src="/assets/imgs/LogoText.png" alt="Fitness Bro Logo Text" class="logo">
         <div class="nav-buttons">
             <a onclick="window.location.href = <?php echo $register_uri; ?>;">Register</a>
             <a onclick="window.location.href = <?php echo $login_uri; ?>;">Log In</a>
@@ -183,6 +190,7 @@
 
     <!-- Hero Section -->
     <div class="hero">
+        <img src="/assets/imgs/Logo.png" alt="Fitness Bro Logo" class="logo">
         <h1>Your Fitness Journey Starts Here</h1>
         <p>Train smarter, eat healthier, and transform your body.</p>
         <a href= <?php echo $register_uri; ?> class="cta-button">Start Today</a>
