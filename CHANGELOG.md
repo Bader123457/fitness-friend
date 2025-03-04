@@ -1,6 +1,12 @@
 # Change Log
 
-## [03/03 2025] Added Nutritionix API, Fixed URL requesting for assets being redirected to index.php - Yi Xuan, Badr
+## [04/03/2025] Fixed wrong error display for Register page - Yi Xuan
+
+### Fixed
+
+- When email/password does not fit requirements, Register page now display what requirements are not met instead of a generic Database error
+
+## [03/03/2025] Added Nutritionix API, Fixed URL requesting for assets being redirected to index.php - Yi Xuan, Badr
 
 ### Added
 
