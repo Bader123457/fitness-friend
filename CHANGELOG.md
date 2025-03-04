@@ -1,5 +1,33 @@
 # Change Log
 
+## [03/03 2025] Added Nutritionix API, Fixed URL requesting for assets being redirected to index.php - Yi Xuan, Badr
+
+### Added
+
+- Added Nutritionix API
+    - We now have a function that can pull food data from Nutritionix API
+    - nutritionix-credentials.env, which contains app ID and API key from Badr's account, **CANNOT** be saved in Git
+    - Go to the Google Drive for the API key
+- Added nutritionix-credentials.env to .gitignore
+
+### Fixed
+
+- Fixed URL requesting for assets being redirected to index.php instead of serving the correct assets
+    - Images and stuff within assets/ can now be directly accessed with URL
+    - The imgaes for home page is not broken anymore
+
+## [27/02/2025] Added Profile page, Profile and dashboard page can now read user information, Added HTML for home page - Yi Xuan, Akshit
+
+### Added
+
+- Added Profile page
+    - This is where users come to edit personal information
+    - Profile page can retrieve information from database and display it
+    - As of now users can only chnage their password
+    - Error messages for the change password function are **not** implemented yet
+- Dashboard page can now read and display user information as well
+- Added HTML for home page
+
 ## [25/02/2025] Session handling, Register page error handling, Logout function, Dashboard page, New exception handling - Yi Xuan
 
 ### Added
