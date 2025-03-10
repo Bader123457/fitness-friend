@@ -19,6 +19,68 @@ class ProfileController {
         $change_password_uri = '\'' . $this->appendUri . '/profile/change_password' . '\'';
         $dashboard_uri = '\'' . $this->appendUri . '/dashboard' . '\'';
 
+        // Error and Success message check and display
+        $generic_error_display = False;
+        $generic_success_display = False;
+        $username_error_display = False;
+        $username_success_display = False;
+        $password_error_display = False;
+        $password_success_display = False;
+        $personal_error_display = False;
+        $personal_success_display = False;
+        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+            // Error check
+            if (!empty($_GET['error'])) {
+                $error_type = $_GET['error'];
+                $error_msg = "";
+                // Display error message
+                switch ($error_type) {
+                    // Password change errors
+                    case "old_password_error":
+                        $password_error_display = True;
+                        $error_msg = "Your old password is incorrect. Please try again.";
+                        break;
+                    case "confirm_password_error":
+                        $password_error_display = True;
+                        $error_msg = "Your new passwords does not match. Please try again.";
+                        break;
+                    case "password_req_error":
+                        $password_error_display = True;
+                        $error_msg = 'Your new password does not match the requirements. Please try again.';
+                        break;
+                    case "password_same_error";
+                        $password_error_display = True;
+                        $error_msg = 'Your old and new password are the same. Please try again.';
+                        break;
+                    case "password_form_error":
+                        $password_error_display = True;
+                        $error_msg = "Something went wrong with the change password form. Please refresh your page or contact an administrator.";
+                        break;
+                    case "password_database_error":
+                        $password_error_display = true;
+                        $error_msg = 'Something went wrong with the database. Please contact an administrator.';
+                        break;
+                    // Unknown errors
+                    default:
+                        $generic_error_display = True;
+                        $error_msg = $error_type;
+                } 
+            } else if (!empty($_GET['success'])) {
+                $success_type = $_GET['success'];
+                $success_msg = "";
+                switch ($success_type) {
+                    case "password":
+                        $password_success_display = True;
+                        $success_msg = 'Your password has been successfully changed.';
+                        break;
+                    // Unknown success
+                    default:
+                        $generic_success_display = True;
+                        $success_msg = $success_type;
+                }
+            }
+        }
+
         // Load the view for the first website
         if (isset($_SESSION['user']) && $_SESSION['logged_in'] === true) {
             // Refresh user information

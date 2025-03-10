@@ -8,6 +8,8 @@
 <body>
     <h1>Profile Page</h1>
     <p>Waiting for frontend html</p>
+    <?php if ($generic_error_display === True) {include_once __DIR__ . '/error_msg_template.php';}?>
+    <?php if ($generic_success_display === True) {include_once __DIR__ . '/success_msg_template.php';}?>
     <button onclick="window.location.href = <?php echo $dashboard_uri; ?>;">Dashboard</button>
     <hr>
     <h3>Edit Username and Email</h3>
@@ -16,6 +18,8 @@
     <hr>
 
     <h3>Edit Password</h3>
+    <?php if ($password_error_display === True) {include_once __DIR__ . '/error_msg_template.php';}?>
+    <?php if ($password_success_display === True) {include_once __DIR__ . '/success_msg_template.php';}?>
     <form action=<?php echo $change_password_uri; ?>; method="POST">
         <label for="old_psw"><b>Old Password</b></label>
         <input type="password" placeholder="Enter Old Password" name="old_psw" required>
