@@ -2,6 +2,9 @@
 class FoodtrackerController {
 
     function index() {
+        require_once __DIR__ . '/../Views/foodtracker.php';
+    }
+    function old_index() {
         // Example usage: Get user input from a form (if applicable)
         $food = isset($_GET['food']) ? htmlspecialchars($_GET['food']) : "1 banana";
         $result = FoodtrackerController::trackFoodIntake($food);
