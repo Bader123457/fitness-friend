@@ -289,7 +289,7 @@
     
             try {
                 if ($userData === False){
-                    throw new ErrorException(message: "Database returned no values");
+                    throw new ErrorException(message: "no values");
                 } else {
                     $user =  new User(
                         user_id: $userData["user_id"],
@@ -310,7 +310,11 @@
                 
                 return $user;
             } catch (Exception $e) {
-                throw new ErrorException(message: "Database Contains Invalid Data in Record: $user_id");
+                if ($e->getMessage() == 'no values') {
+                    throw new ErrorException(message: "Database returned no values");
+                } else {
+                    throw new ErrorException(message: "Database Contains Invalid Data in Record: $user_id");
+                }
             }
         }
     

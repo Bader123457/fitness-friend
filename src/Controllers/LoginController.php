@@ -96,8 +96,13 @@ class LoginController {
                 }
 
             } catch (Exception $e) {
-                header('Location: '. $login_uri. '?error=database_error');
-                die();
+                if ($e->getMessage() == 'Database returned no values') {
+                    header('Location: '. $login_uri. '?error=credentials_error');
+                    die();
+                } else {
+                    header('Location: '. $login_uri. '?error=database_error');
+                    die();
+                }
             }
         } else {
             header('Location: '. $login_uri);
