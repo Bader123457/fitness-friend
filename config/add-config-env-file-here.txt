@@ -1,0 +1,13 @@
+This repo expects the following files:
+    db-credentials.env
+    nutritionix-credentials.env
+
+db-credentials.env expected variables:
+    SERVER_NAME
+    USERNAME
+    PASSWORD
+    DB_NAME
+
+nutritionix-credentials.env expected variables:
+    APP_ID
+    API_KEY 
