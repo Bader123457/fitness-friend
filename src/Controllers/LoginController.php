@@ -16,6 +16,7 @@ class LoginController {
         // Generate all redirect links
         $home_uri = '\'' . $this->appendUri . '/home' . '\'';
         $validate_uri = '\'' . $this->appendUri . '/login/validate' . '\'';
+        $register_uri = '\'' . $this->appendUri . '/register' . '\'';
         $dashboard_uri = $this->appendUri . '/dashboard';
 
         // Check if login session already exists

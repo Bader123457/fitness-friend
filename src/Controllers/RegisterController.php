@@ -15,6 +15,7 @@ class RegisterController {
 
         // Generate all redirect links
         $home_uri = '\'' . $this->appendUri . '/home' . '\'';
+        $login_uri = '\'' . $this->appendUri . '/login' . '\'';
         $validate_uri = '\'' . $this->appendUri . '/register/validate' . '\'';
         $dashboard_uri = $this->appendUri . '/dashboard';
 
