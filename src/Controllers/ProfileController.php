@@ -30,6 +30,19 @@ class ProfileController {
                 $error_msg = "";
                 // Display error message
                 switch ($error_type) {
+                    // Username change errors
+                    case "username_form_error":
+                        $enable_error_display = "u";
+                        $error_msg = "Something went wrong with the change username form. Please refresh your page or contact an administrator.";
+                        break;
+                    case "username_same_error":
+                        $enable_error_display = "u";
+                        $error_msg = "Your new username is the same as your old username. Please try again.";
+                        break;
+                    case "username_database_error":
+                        $enable_error_display = "u";
+                        $error_msg = 'Something went wrong with the database. Please contact an administrator.';
+                        break;
                     // Password change errors
                     case "old_password_error":
                         $enable_error_display = "p";
@@ -64,6 +77,10 @@ class ProfileController {
                 $success_type = $_GET['success'];
                 $success_msg = "";
                 switch ($success_type) {
+                    case "username":
+                        $enable_success_display = "u";
+                        $success_msg = 'Your username has been successfully changed.';
+                        break;
                     case "password":
                         $enable_success_display = "p";
                         $success_msg = 'Your password has been successfully changed.';

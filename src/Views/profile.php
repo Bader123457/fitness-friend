@@ -13,6 +13,8 @@
     <button onclick="window.location.href = <?php echo $dashboard_uri; ?>;">Dashboard</button>
     <hr>
     <h3>Edit Username</h3>
+    <?php if ($enable_error_display === "u") {include_once __DIR__ . '/error_msg_template.php';}?>
+    <?php if ($enable_success_display === "u") {include_once __DIR__ . '/success_msg_template.php';}?>
     <form action=<?php echo $change_username_uri; ?>; method="POST">
         <label for="new_uname"><b>Username</b></label>
         <input type="text" placeholder='Enter New Username' value=<?php echo '\'' . $_SESSION['user']->username . '\''; ?> name="new_uname" required>
