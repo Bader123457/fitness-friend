@@ -1,3 +1,5 @@
-# Redirect every URL to the public/ folder
 RewriteEngine On
+# Allow direct access to the assets folder (images, CSS, JS, etc.)
+RewriteCond %{REQUEST_URI} !^/assets/
+# Redirect all other URLs to the public folder
 RewriteRule ^(.*)$ public/$1 [L]
