@@ -17,6 +17,7 @@ class ProfileController {
         // Generate all redirect links
         $login_uri = $this->appendUri . '/login';
         $change_password_uri = '\'' . $this->appendUri . '/profile/change_password' . '\'';
+        $change_username_uri = '\'' . $this->appendUri . '/profile/change_username' . '\'';
         $dashboard_uri = '\'' . $this->appendUri . '/dashboard' . '\'';
 
         // Error and Success message check and display
@@ -94,6 +95,64 @@ class ProfileController {
         }
     }
 
+    public function change_username(){
+        require_once __DIR__ . '/../Models/user-class.php';
+
+        // Get session
+        session_set_cookie_params([
+            'lifetime' => 86400, // 1 day
+            'secure' => true,   // Only send over HTTPS
+            'httponly' => true,  // Prevent JavaScript access
+            'samesite' => 'Strict' // Prevent CSRF attacks
+        ]);
+        session_start();
+
+        // Construct links
+        $profile_uri = $this->appendUri . '/profile';
+        $login_uri = $this->appendUri . '/login';
+
+        if (isset($_SESSION['user']) && $_SESSION['logged_in'] === true) {
+            // Refresh user information
+            $_SESSION['user'] = User::getUser(user_id: $_SESSION['user']->user_id);
+
+            // Check POST
+            if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+                header('Location: '. $profile_uri);
+                die();
+            }
+
+            // Get values
+            try {
+                $new_username = $_POST['new_uname'];
+            } catch (Exception $e) {
+                header('Location: '. $profile_uri . '?error=username_form_error');
+                die();
+            }
+            
+            // Check if username is same
+            if ($_SESSION['user']->username == $new_username) {
+                header('Location: '. $profile_uri . '?error=username_same_error');
+                die();
+            }
+
+            // Attempt to save new username
+            try {
+                $_SESSION['user']->username = $new_username;
+                $_SESSION['user']->saveToDB();
+                header('Location: '. $profile_uri . '?success=username');
+                die();
+            } catch (Exception $e) {
+                header('Location: '. $profile_uri . '?error=username_database_error');
+                die();
+            }
+
+
+        } else {
+            header('Location: '. $login_uri);
+            die();
+        }
+    }
+
     public function change_password() {
         // Include class
         require_once __DIR__ . '/../Models/user-class.php';
@@ -109,23 +168,24 @@ class ProfileController {
         
         // Construct links
         $profile_uri = $this->appendUri . '/profile';
+        $login_uri = $this->appendUri . '/login';
 
         if (isset($_SESSION['user']) && $_SESSION['logged_in'] === true) {
             // Refresh user information
             $_SESSION['user'] = User::getUser(user_id: $_SESSION['user']->user_id);
 
-            // Get values
-            try {
-                $old_psw = $_POST['old_psw'];
-                $new_psw = $_POST['new_psw'];
-                $conf_psw = $_POST['conf_psw'];
-
-            } catch (Exception $e) {
-                header('Location: '. $profile_uri . '?error=password_form_error');
-                die();
-            }
-
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                // Get values
+                try {
+                    $old_psw = $_POST['old_psw'];
+                    $new_psw = $_POST['new_psw'];
+                    $conf_psw = $_POST['conf_psw'];
+
+                } catch (Exception $e) {
+                    header('Location: '. $profile_uri . '?error=password_form_error');
+                    die();
+                }
+
                 // Validate old password
                 if ($_SESSION['user']->validatePassword($old_psw)) {
                     // Compare New Password and Confirm Password

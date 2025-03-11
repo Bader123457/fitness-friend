@@ -12,8 +12,16 @@
     <?php if ($generic_success_display === True) {include_once __DIR__ . '/success_msg_template.php';}?>
     <button onclick="window.location.href = <?php echo $dashboard_uri; ?>;">Dashboard</button>
     <hr>
-    <h3>Edit Username and Email</h3>
-    <p>Username: <?php echo $_SESSION['user']->username; ?></p>
+    <h3>Edit Username</h3>
+    <form action=<?php echo $change_username_uri; ?>; method="POST">
+        <label for="new_uname"><b>Username</b></label>
+        <input type="text" placeholder='Enter New Username' value=<?php echo '\'' . $_SESSION['user']->username . '\''; ?> name="new_uname" required>
+        <br>
+        <button type="submit">Change Username</button>
+    </form>
+    <hr>
+
+    <h3>Edit Email</h3>
     <p>Email: <?php echo $_SESSION['user']->email; ?></p>
     <hr>
 
