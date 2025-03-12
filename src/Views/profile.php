@@ -49,13 +49,53 @@
     <hr>
 
     <h3>Edit Personal Information</h3>
-    <p>First Name: <?php echo $_SESSION['user']->first_name; ?></p>   
-    <p>Last Name: <?php echo $_SESSION['user']->last_name; ?></p>
-    <p>Date of Birth: <?php echo $_SESSION['user']->dob; ?></p>
-    <p>Gender: <?php echo $_SESSION['user']->gender; ?></p>
-    <p>Height: <?php echo $_SESSION['user']->height; ?></p>
-    <p>Weight: <?php echo $_SESSION['user']->weight; ?></p>
-    <p>Body Fat Percentage: <?php echo $_SESSION['user']->body_fat_percent; ?></p>
-    <p>Activity Level: <?php echo $_SESSION['user']->activity_level; ?></p>
+    <?php if ($enable_error_display === "i") {include_once __DIR__ . '/error_msg_template.php';}?>
+    <?php if ($enable_success_display === "i") {include_once __DIR__ . '/success_msg_template.php';}?>
+
+    <form action=<?php echo $change_password_uri; ?>; method="POST">
+        <label for="first_name"><b>First Name</b></label>
+        <input type="text" placeholder="Enter First Name" value=<?php echo '\'' . $_SESSION['user']->first_name . '\'' ?> name="first_name" required>
+        <br>
+
+        <label for="last_name"><b>Last Name</b></label>
+        <input type="text" placeholder="Enter Last Name" value=<?php echo '\'' . $_SESSION['user']->last_name . '\'' ?> name="last_name" required>
+        <br>
+
+        <label for="dob"><b>Date of Birth</b></label>
+        <input type="date" value=<?php echo '\'' . $_SESSION['user']->dob . '\'';?> name="dob" required>
+        <br>
+
+        <label for="gender"><b>Gender</b></label>
+        <select name="gender">
+            <option value="MALE" <?php if ($_SESSION['user']->gender == "MALE") echo "selected='selected'";?>>Male</option>
+            <option value="FEMALE" <?php if ($_SESSION['user']->gender == "FEMALE") echo "selected='selected'";?>>Female</option>
+            <option value="OTHER" <?php if ($_SESSION['user']->gender == "OTHER") echo "selected='selected'";?>>Others</option>
+            <option value="PNTS" <?php if ($_SESSION['user']->gender == "PNTS") echo "selected='selected'";?>>Prefer Not To Say</option>
+        </select>
+        <br>
+
+        <label for="height"><b>Height</b></label>
+        <input type="number" min="0" step="1" value=<?php echo '\'' . $_SESSION['user']->height . '\''; ?> name="height" required>cm
+        <br>
+
+        <label for="weight"><b>Weight</b></label>
+        <input type="number" min="0" step="1" value=<?php echo '\'' . $_SESSION['user']->weight . '\''; ?> name="weight" required>kg
+        <br>
+
+        <label for="bfp"><b>Body Fat Percentage</b></label>
+        <input type="number" min="0" step="1" value=<?php echo '\'' . $_SESSION['user']->body_fat_percent . '\''; ?> name="bfp" required>%
+        <br>
+
+        <label for="activity"><b>Activity Level</b></label>
+        <select name="activity">
+            <option value="LOW" <?php if ($_SESSION['user']->gender == "LOW") echo "selected='selected'";?>>Low</option>
+            <option value="MEDIUM" <?php if ($_SESSION['user']->gender == "MEDIUM") echo "selected='selected'";?>>Medium</option>
+            <option value="HIGH" <?php if ($_SESSION['user']->gender == "HIGH") echo "selected='selected'";?>>High</option>
+        </select>
+        <br>
+
+        &nbsp; <br>
+        <button type="submit">Change Personal Information</button>
+    </form>
 </body>
 </html>
