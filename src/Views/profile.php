@@ -23,7 +23,7 @@
     </form>
     <hr>
 
-    <h3>Edit Email</h3>
+    <h3>Email</h3>
     <p>Email: <?php echo $_SESSION['user']->email; ?></p>
     <hr>
 
@@ -88,9 +88,9 @@
 
         <label for="activity"><b>Activity Level</b></label>
         <select name="activity">
-            <option value="LOW" <?php if ($_SESSION['user']->gender == "LOW") echo "selected='selected'";?>>Low</option>
-            <option value="MEDIUM" <?php if ($_SESSION['user']->gender == "MEDIUM") echo "selected='selected'";?>>Medium</option>
-            <option value="HIGH" <?php if ($_SESSION['user']->gender == "HIGH") echo "selected='selected'";?>>High</option>
+            <option value="LOW" <?php if ($_SESSION['user']->activity_level == "LOW") echo "selected='selected'";?>>Low</option>
+            <option value="MEDIUM" <?php if ($_SESSION['user']->activity_level == "MEDIUM") echo "selected='selected'";?>>Medium</option>
+            <option value="HIGH" <?php if ($_SESSION['user']->activity_level == "HIGH") echo "selected='selected'";?>>High</option>
         </select>
         <br>
 
