@@ -52,7 +52,7 @@
     <?php if ($enable_error_display === "i") {include_once __DIR__ . '/error_msg_template.php';}?>
     <?php if ($enable_success_display === "i") {include_once __DIR__ . '/success_msg_template.php';}?>
 
-    <form action=<?php echo $change_password_uri; ?>; method="POST">
+    <form action=<?php echo $change_personal_information_uri; ?>; method="POST">
         <label for="first_name"><b>First Name</b></label>
         <input type="text" placeholder="Enter First Name" value=<?php echo '\'' . $_SESSION['user']->first_name . '\'' ?> name="first_name" required>
         <br>
@@ -62,7 +62,7 @@
         <br>
 
         <label for="dob"><b>Date of Birth</b></label>
-        <input type="date" value=<?php echo '\'' . $_SESSION['user']->dob . '\'';?> name="dob" required>
+        <input type="date" value=<?php echo '\'' . $_SESSION['user']->dob . '\'';?> name="dob">
         <br>
 
         <label for="gender"><b>Gender</b></label>

@@ -18,9 +18,18 @@ class ProfileController {
         $login_uri = $this->appendUri . '/login';
         $change_password_uri = '\'' . $this->appendUri . '/profile/change_password' . '\'';
         $change_username_uri = '\'' . $this->appendUri . '/profile/change_username' . '\'';
+        $change_personal_information_uri = '\'' . $this->appendUri . '/profile/change_personal_information' . '\'';
         $dashboard_uri = '\'' . $this->appendUri . '/dashboard' . '\'';
 
-        // Error and Success message check and display
+        /* 
+        Error and Success message check and display 
+        For both $enable_error_display and $enable_success_display:
+        'n' = no message enabled
+        'g' = generic message, appears at top of screen
+        'u' = username change message, appears at Edit Username section
+        'p' = password change message, appears at Edit Password section
+        'i' = personal information change message, appears at Edit Personal Information section
+        */
         $enable_error_display = "n";
         $enable_success_display = "n";
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -68,6 +77,23 @@ class ProfileController {
                         $enable_error_display = "p";
                         $error_msg = 'Something went wrong with the database. Please contact an administrator.';
                         break;
+                    // Personal Information change errors
+                    case "personal_information_form_error":
+                        $enable_error_display = "i";
+                        $error_msg = "Something went wrong with the change personal information form. Please refresh your page or contact an administrator.";
+                        break;
+                    case "personal_information_req_error":
+                        $enable_error_display = "i";
+                        if (!empty($_GET['msg'])) {
+                            $error_msg = $_GET['msg'];
+                        } else {
+                            $error_msg = "Some changes to your information didn't meet the requirements of the database, but we couldn't identify the error. Please contact an administrator.";
+                        }
+                        break;
+                    case "personal_information_database_error":
+                        $enable_error_display = "i";
+                        $error_msg = 'Something went wrong with the database. Please contact an administrator.';
+                        break;
                     // Unknown errors
                     default:
                         $enable_error_display = "g";
@@ -84,6 +110,10 @@ class ProfileController {
                     case "password":
                         $enable_success_display = "p";
                         $success_msg = 'Your password has been successfully changed.';
+                        break;
+                    case "personal_information":
+                        $enable_success_display = "i";
+                        $success_msg = 'Your personal information has been successfully changed.';
                         break;
                     // Unknown success
                     default:
@@ -232,6 +262,82 @@ class ProfileController {
                 }
             } else {
                 header('Location: '. $profile_uri);
+                die();
+            }
+        } else {
+            header('Location: '. $login_uri);
+            die();
+        }
+    }
+
+    public function change_personal_information() {
+        // Include class
+        require_once __DIR__ . '/../Models/user-class.php';
+
+        // Get session
+        session_set_cookie_params([
+            'lifetime' => 86400, // 1 day
+            'secure' => true,   // Only send over HTTPS
+            'httponly' => true,  // Prevent JavaScript access
+            'samesite' => 'Strict' // Prevent CSRF attacks
+        ]);
+        session_start();
+
+        // Construct links
+        $profile_uri = $this->appendUri . '/profile';
+        $login_uri = $this->appendUri . '/login';
+
+        if (isset($_SESSION['user']) && $_SESSION['logged_in'] === true) {
+            // Refresh user information
+            $_SESSION['user'] = User::getUser(user_id: $_SESSION['user']->user_id);
+
+            // Check POST
+            if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+                header('Location: '. $profile_uri);
+                die();
+            }
+
+            // Get values
+            try {
+                $first_name = $_POST['first_name'];
+                $last_name = $_POST['last_name'];
+                $dob = $_POST['dob'];
+                $gender = $_POST['gender'];
+                $height = $_POST['height'];
+                $weight = $_POST['weight'];
+                $bfp = $_POST['bfp'];
+                $activity = $_POST['activity'];
+            } catch (Exception $e) {
+                header('Location: '. $profile_uri . '?error=personal_information_form_error');
+                die();
+            }
+            
+            // Check reqs
+            try {
+                $_SESSION['user']->first_name = $first_name;
+                $_SESSION['user']->last_name = $last_name;
+                if ($dob == '') {
+                    $_SESSION['user']->dob = '0000-00-00';
+                } else {
+                    $_SESSION['user']->dob = $dob;
+                }
+                $_SESSION['user']->gender = $gender;
+                $_SESSION['user']->height = (int)$height;
+                $_SESSION['user']->weight = (int)$weight;
+                $_SESSION['user']->body_fat_percent = (int)$bfp;
+                $_SESSION['user']->activity_level = $activity;
+            } catch (Exception $e) {
+                header('Location: '. $profile_uri. '?error=personal_information_req_error&msg=' . $e->getMessage());
+                die();
+            }
+
+            // Save information
+            try {
+                $_SESSION['user']->saveToDB();
+                header('Location: '. $profile_uri . '?success=personal_information');
+                die();
+            } catch (Exception $e) {
+                header('Location: '. $profile_uri . '?error=personal_information_database_error');
                 die();
             }
         } else {
