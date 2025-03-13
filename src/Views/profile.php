@@ -17,7 +17,7 @@
     <?php if ($enable_success_display === "u") {include_once __DIR__ . '/success_msg_template.php';}?>
     <form action=<?php echo $change_username_uri; ?>; method="POST">
         <label for="new_uname"><b>Username</b></label>
-        <input type="text" placeholder='Enter New Username' value=<?php echo '\'' . $_SESSION['user']->username . '\''; ?> name="new_uname" required>
+        <input type="text" id='new_uname' placeholder='Enter New Username' value=<?php echo '\'' . $_SESSION['user']->username . '\''; ?> name="new_uname" required>
         <br>
         <button type="submit">Change Username</button>
     </form>
@@ -32,15 +32,15 @@
     <?php if ($enable_success_display === "p") {include_once __DIR__ . '/success_msg_template.php';}?>
     <form action=<?php echo $change_password_uri; ?>; method="POST">
         <label for="old_psw"><b>Old Password</b></label>
-        <input type="password" placeholder="Enter Old Password" name="old_psw" required>
+        <input type="password" id='old_psw' placeholder="Enter Old Password" name="old_psw" required>
         <br>
 
         <label for="new_psw"><b>New Password</b></label>
-        <input type="password" placeholder="Enter New Password" name="new_psw" required>
+        <input type="password" id='new_psw' placeholder="Enter New Password" name="new_psw" required>
         <br>
 
         <label for="conf_psw"><b>Confirm Password</b></label>
-        <input type="password" placeholder="Confirm New Password" name="conf_psw" required>
+        <input type="password" id="conf_psw" placeholder="Confirm New Password" name="conf_psw" required>
         <br>
         &nbsp; <br>
 
@@ -54,19 +54,19 @@
 
     <form action=<?php echo $change_personal_information_uri; ?>; method="POST">
         <label for="first_name"><b>First Name</b></label>
-        <input type="text" placeholder="Enter First Name" value=<?php echo '\'' . $_SESSION['user']->first_name . '\'' ?> name="first_name" required>
+        <input type="text" id="first_name" placeholder="Enter First Name" value=<?php echo '\'' . $_SESSION['user']->first_name . '\'' ?> name="first_name" required>
         <br>
 
         <label for="last_name"><b>Last Name</b></label>
-        <input type="text" placeholder="Enter Last Name" value=<?php echo '\'' . $_SESSION['user']->last_name . '\'' ?> name="last_name" required>
+        <input type="text" id='last_name' placeholder="Enter Last Name" value=<?php echo '\'' . $_SESSION['user']->last_name . '\'' ?> name="last_name" required>
         <br>
 
         <label for="dob"><b>Date of Birth</b></label>
-        <input type="date" value=<?php echo '\'' . $_SESSION['user']->dob . '\'';?> name="dob">
+        <input type="date" id="dob" value=<?php echo '\'' . $_SESSION['user']->dob . '\'';?> name="dob">
         <br>
 
         <label for="gender"><b>Gender</b></label>
-        <select name="gender">
+        <select name="gender" id="gender">
             <option value="MALE" <?php if ($_SESSION['user']->gender == "MALE") echo "selected='selected'";?>>Male</option>
             <option value="FEMALE" <?php if ($_SESSION['user']->gender == "FEMALE") echo "selected='selected'";?>>Female</option>
             <option value="OTHER" <?php if ($_SESSION['user']->gender == "OTHER") echo "selected='selected'";?>>Others</option>
@@ -75,19 +75,19 @@
         <br>
 
         <label for="height"><b>Height</b></label>
-        <input type="number" min="0" step="1" value=<?php echo '\'' . $_SESSION['user']->height . '\''; ?> name="height" required>cm
+        <input type="number" id='height' min="0" step="1" value=<?php echo '\'' . $_SESSION['user']->height . '\''; ?> name="height" required>cm
         <br>
 
         <label for="weight"><b>Weight</b></label>
-        <input type="number" min="0" step="1" value=<?php echo '\'' . $_SESSION['user']->weight . '\''; ?> name="weight" required>kg
+        <input type="number" id='weight' min="0" step="1" value=<?php echo '\'' . $_SESSION['user']->weight . '\''; ?> name="weight" required>kg
         <br>
 
         <label for="bfp"><b>Body Fat Percentage</b></label>
-        <input type="number" min="0" step="1" value=<?php echo '\'' . $_SESSION['user']->body_fat_percent . '\''; ?> name="bfp" required>%
+        <input type="number" id='bfp' min="0" step="1" value=<?php echo '\'' . $_SESSION['user']->body_fat_percent . '\''; ?> name="bfp" required>%
         <br>
 
         <label for="activity"><b>Activity Level</b></label>
-        <select name="activity">
+        <select name="activity" id="activity">
             <option value="LOW" <?php if ($_SESSION['user']->activity_level == "LOW") echo "selected='selected'";?>>Low</option>
             <option value="MEDIUM" <?php if ($_SESSION['user']->activity_level == "MEDIUM") echo "selected='selected'";?>>Medium</option>
             <option value="HIGH" <?php if ($_SESSION['user']->activity_level == "HIGH") echo "selected='selected'";?>>High</option>
@@ -95,7 +95,7 @@
         <br>
 
         <label for="weight_preference"><b>Weight Preference</b></label>
-        <select name="weight_preference">
+        <select name="weight_preference" id="weight_preference">
             <option value="XLOSE" <?php if ($_SESSION['user']->weight_preference == "XLOSE") echo "selected='selected'";?>>Intensive Weight Loss</option>
             <option value="LOSE" <?php if ($_SESSION['user']->weight_preference == "LOSE") echo "selected='selected'";?>>Lose Weight</option>
             <option value="MNTN" <?php if ($_SESSION['user']->weight_preference == "MNTN") echo "selected='selected'";?>>Maintain Weight</option>
