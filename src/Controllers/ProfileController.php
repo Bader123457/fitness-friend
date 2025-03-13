@@ -113,6 +113,13 @@ class ProfileController {
                         break;
                     case "personal_information":
                         $enable_success_display = "i";
+                        if (!empty($_GET['warning']) && $_GET['warning'] == 'XLOSE') {
+                            $enable_error_display = "i";
+                            $error_msg = 'Please note that following plans recommended for Intensive Weight Loss may cause adverse health effects to certain people. Information on this website should not be treated as medical advice. Please consult your doctor regarding your use of Intensive Weight Loss plans.';
+                        } else if (!empty($_GET['warning']) && $_GET['warning'] == 'XGAIN') {
+                            $enable_error_display = "i";
+                            $error_msg = 'Please note that following plans recommended for Intensive Weight Gain may cause adverse health effects to certain people. Information on this website should not be treated as medical advice. Please consult your doctor regarding your use of Intensive Weight Gain plans.';
+                        }
                         $success_msg = 'Your personal information has been successfully changed.';
                         break;
                     // Unknown success
@@ -307,6 +314,7 @@ class ProfileController {
                 $weight = $_POST['weight'];
                 $bfp = $_POST['bfp'];
                 $activity = $_POST['activity'];
+                $weight_preference = $_POST['weight_preference'];
             } catch (Exception $e) {
                 header('Location: '. $profile_uri . '?error=personal_information_form_error');
                 die();
@@ -326,6 +334,7 @@ class ProfileController {
                 $_SESSION['user']->weight = (int)$weight;
                 $_SESSION['user']->body_fat_percent = (int)$bfp;
                 $_SESSION['user']->activity_level = $activity;
+                $_SESSION['user']->weight_preference = $weight_preference;
             } catch (Exception $e) {
                 header('Location: '. $profile_uri. '?error=personal_information_req_error&msg=' . $e->getMessage());
                 die();
@@ -334,8 +343,14 @@ class ProfileController {
             // Save information
             try {
                 $_SESSION['user']->saveToDB();
-                header('Location: '. $profile_uri . '?success=personal_information');
-                die();
+                if ($weight_preference == 'XLOSE' or $weight_preference == 'XGAIN'){
+                    header('Location: '. $profile_uri . '?success=personal_information&warning=' . $weight_preference);
+                    die();
+                } else {
+                    header('Location: '. $profile_uri . '?success=personal_information');
+                    die();
+                }
+                
             } catch (Exception $e) {
                 header('Location: '. $profile_uri . '?error=personal_information_database_error');
                 die();

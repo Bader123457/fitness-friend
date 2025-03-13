@@ -94,6 +94,16 @@
         </select>
         <br>
 
+        <label for="weight_preference"><b>Weight Preference</b></label>
+        <select name="weight_preference">
+            <option value="XLOSE" <?php if ($_SESSION['user']->weight_preference == "XLOSE") echo "selected='selected'";?>>Intensive Weight Loss</option>
+            <option value="LOSE" <?php if ($_SESSION['user']->weight_preference == "LOSE") echo "selected='selected'";?>>Lose Weight</option>
+            <option value="MNTN" <?php if ($_SESSION['user']->weight_preference == "MNTN") echo "selected='selected'";?>>Maintain Weight</option>
+            <option value="GAIN" <?php if ($_SESSION['user']->weight_preference == "GAIN") echo "selected='selected'";?>>Gain Weight</option>
+            <option value="XGAIN" <?php if ($_SESSION['user']->weight_preference == "XGAIN") echo "selected='selected'";?>>Intensive Weight Gain</option>
+        </select>
+        <br>
+
         &nbsp; <br>
         <button type="submit">Change Personal Information</button>
     </form>
