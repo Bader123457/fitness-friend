@@ -47,6 +47,12 @@ class LoginController {
             }
         }
 
+        // Check register success
+        if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET['register_success'] && $_GET['register_success'] == 'True')) {
+            $success_display = True;
+            $success_msg = 'Register successful. Please try logging in.';
+        }
+
         // Load the view for the second website
         require_once __DIR__ . '/../Views/login.php';
     }
