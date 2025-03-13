@@ -99,6 +99,7 @@
     <img src="/assets/imgs/Logo.png" alt="FitnessBro Logo">
     <h2>Login to FitnessBro</h2>
     <?php if ($error_display === True) {include_once __DIR__ . '/error_msg_template.php';}?>
+    <?php if ($success_display === True) {include_once __DIR__ . '/success_msg_template.php';}?>
     <form action= <?php echo $validate_uri; ?> method="POST">
         <label for="username">Username</label>
         <input type="text" name="uname" id="username" placeholder="Enter your username" required>

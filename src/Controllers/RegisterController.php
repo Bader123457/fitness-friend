@@ -52,6 +52,7 @@ class RegisterController {
     }
     public function validate() {
         $register_uri = $this->appendUri . '/register';
+        $login_uri = $this->appendUri . '/login';
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             try {
                 $username = $_POST['uname'];
@@ -74,6 +75,8 @@ class RegisterController {
                     $user = new User(user_id: null, username: $username, email: $email, password: $password);
                     try {
                         $user->saveToDB();
+                        header('Location: '. $login_uri. '?register_success=True');
+                        die();
                     } catch (Exception $e) {
                         header('Location: '. $register_uri. '?error=database_error');
                         die();
