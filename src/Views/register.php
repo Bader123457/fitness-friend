@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Register - FitnessBro </title>
     <style>
         body {
@@ -85,17 +86,32 @@
         .sign-up a:hover {
             text-decoration: underline;
         }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0); 
+            }
+        }
+
+        .page-animation {
+            animation: fadeIn 0.4s ease-out
+        }
     </style>
 </head>
 <body>
 
-<div class="container">
+<div class="container page-animation">
     <h2>Register</h2>
     <?php if ($error_display === True) {include_once __DIR__ . '/error_msg_template.php';}?>
     <form action=<?php echo $validate_uri; ?> method="POST">
         <label for="username">Username</label>
-        <input type="text" name="uname" id="username" required>
-
+        <input type="text" name="uname" id="username" required> 
+ 
         <label for="email">Email</label>
         <input type="email" name="email" id="email" required>   
 

@@ -97,11 +97,25 @@
         .login-container a:hover {
             text-decoration: underline;
         }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0); 
+            }
+        }
+
+        .page-animation {
+            animation: fadeIn 0.4s ease-out
+        }
     </style>
 </head>
 <body>
 
-<div class="login-container">
+<div class="login-container page-animation">
     <img src="/assets/imgs/Logo.png" alt="FitnessBro Logo">
     <h2>Login to FitnessBro</h2>
     <?php if ($error_display === True) {include_once __DIR__ . '/error_msg_template.php';}?>
