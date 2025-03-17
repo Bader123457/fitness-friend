@@ -48,8 +48,10 @@ class LoginController {
         }
 
         // Check register success
-        if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET['register_success'] && $_GET['register_success'] == 'True')) {
-            $success_display = True;
+        $success_display = false;
+
+        if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['register_success']) && $_GET['register_success'] === 'True') {
+            $success_display = true;
             $success_msg = 'Register successful. Please try logging in.';
         }
 

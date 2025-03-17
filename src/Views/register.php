@@ -3,71 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register - FitnessBro</title>
+    <title>Register - FitnessBro </title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #4a2900, #b88929);
+
+            background-image: url('/assets/imgs/gymphoto2.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
             display: flex;
+
             justify-content: center;
             align-items: center;
             height: 100vh;
             margin: 0;
         }
         .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            background-color: #121212;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.0.5);
             width: 350px;
+            text-align: center;
         }
-        input[type=text], input[type=email], input[type=password] {
-            width: 95%;
-            padding: 10px;
-            margin: 5px 0 15px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #f5c518;
+        }
+
+        input[type=text],
+        input[type=email],
+        input[type=password] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #444;
+            background-color: #1a1a1a;
+            color: white;
+            border-radius: 5px;
+            outline: none;
             transition: all 0.3s;
+
         }
         input[type=text]:focus, 
         input[type=email]:focus, 
         input[type=password]:focus {
-            border-color: #4CAF50;
-            box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
-            outline: none;
+            border-color: #f5c518;
+            box-shadow: 0 0 15px rgba(245, 197, 24, 0.5);
         }
-        button[type=button] {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 10px;
-            margin-top: 6px;
-            width: 100%;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background 0.3s;
+
+        label {
+            color: #f5c518;
         }
+
         button {
-            background-color: #4CAF50;
-            color: white;
+            background-color: #f5c518;
+            color: #000000;
             border: none;
-            padding: 10px;
+            padding: 12px;
+            margin-top: 10px;
             width: 100%;
-            border-radius: 4px;
+            border-radius: 5px;
             cursor: pointer;
             transition: background 0.3s;
+            font-size: 16px;
         }
         button:hover {
-            background-color: #388e3c;
+            background-color:#d4a316;
         }
-        h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
+ 
         .sign-up {
             margin-top: 10px;
         }
         .sign-up a{
+            color: #f5c518;
             text-decoration: none;
         }
         .sign-up a:hover {

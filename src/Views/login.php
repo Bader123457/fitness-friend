@@ -7,7 +7,13 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(135deg, #000000, #b88929);
+            
+            background-image: url('/assets/imgs/gymphoto2.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            display: flex;
+
             height: 100vh;
             display: flex;
             justify-content: center;
@@ -59,7 +65,7 @@
             color: #000;
             border: none;
             margin-top: 16px;
-            padding: 8px;
+            padding: 12px;
             width: 100%;
             border-radius: 5px;
             font-size: 16px;
