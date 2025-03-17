@@ -1,9 +1,10 @@
 <?php
-class DashboardController {
+class CalorieController {
     public $appendUri = '';
-    public function index() {
-        // Include class
+    function index() {
+        // Include classes
         require_once __DIR__ . '/../Models/user-class.php';
+        require_once __DIR__ . '/../Models/physical-activity-class.php';
 
         // Get session
         session_set_cookie_params([
@@ -14,23 +15,16 @@ class DashboardController {
         ]);
         session_start();
 
-        // Generate all redirect links
-        $login_uri = $this->appendUri . '/login';
-        $logout_uri = '\''. $this->appendUri . '/login/logout'. '\'';
-        $profile_uri = '\''. $this->appendUri . '/profile'. '\'';
-        $calorie_uri = '\''. $this->appendUri . '/calorie'. '\'';
-
         // Check user
         if (isset($_SESSION['user']) && $_SESSION['logged_in'] === true) {
             // Refresh user information
             $_SESSION['user'] = User::getUser(user_id: $_SESSION['user']->user_id);
 
             // Load the view for the first website
-            require_once __DIR__ . '/../Views/dashboard.php';
+            require_once __DIR__ . '/../Views/calorie.php';
         } else {
             header('Location: '. $login_uri);
-            die();
+            die();   
         }
-        
     }
 }
