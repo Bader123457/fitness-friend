@@ -1,54 +1,3 @@
-<?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-if (!isset($_SESSION["user"])) {
-    die("Error: User not logged in.");
-}
-
-$dashboard_uri = $_SERVER['DOCUMENT_ROOT'] . "/fitness-Bro/dashboard.php";
-
-// Extract user data
-$user = $_SESSION["user"];
-
-$weight = $user->weight;
-$height = $user->height;
-$gender = ucfirst(strtolower($user->gender)); // Normalize case
-$dob = new DateTime($user->dob);
-$today = new DateTime();
-$age = ($dob->format('Y') == "0000") ? "Unknown" : $today->diff($dob)->y;
-$activityLevel = strtoupper($user->activity_level); // Ensure case consistency
-
-// BMR Calculation
-if ($age === "Unknown") {
-    $bmr = "Unknown (Invalid DOB)";
-} else {
-    if ($gender === "Male") {
-        $bmr = (10 * $weight) + (6.25 * $height) - (5 * $age) + 5;
-    } elseif ($gender === "Female") {
-        $bmr = (10 * $weight) + (6.25 * $height) - (5 * $age) - 161;
-    } else {
-        $bmr = "Unknown (Invalid Gender)";
-    }
-}
-
-// Activity level multipliers for TDEE
-$activityLevels = [
-    "SEDENTARY" => 1.2,      
-    "LIGHT" => 1.375,        
-    "MEDIUM" => 1.55,        
-    "HEAVY" => 1.725,        
-    "ATHLETE" => 1.9         
-];
-
-// Calculate TDEE (Total Daily Energy Expenditure)
-$tdee = isset($activityLevels[$activityLevel]) ? round($bmr * $activityLevels[$activityLevel]) : "Unknown (Invalid Activity Level)";
-
-// Format activity level for display
-$activityLevelDisplay = ucfirst(strtolower($activityLevel));
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -152,7 +101,7 @@ $activityLevelDisplay = ucfirst(strtolower($activityLevel));
         .progress-fill {
             height: 100%;
             background-color: #f5c518;
-            width: <?= min(100, ($bmr !== "Unknown (Invalid Gender)" && $tdee !== "Unknown (Invalid Activity Level)") ? round(($bmr / $tdee) * 100) : 0) ?>%;
+            width: <?php echo (string)$progress_width . '%';?>;
         }
         
         .bar-labels {
@@ -203,49 +152,32 @@ $activityLevelDisplay = ucfirst(strtolower($activityLevel));
                 
                 <div class="info-row">
                     <span class="info-label">Weight</span>
-                    <span class="info-value"><?= htmlspecialchars($weight) ?> kg</span>
+                    <span class="info-value"><?php echo $weight;?> kg</span>
                 </div>
                 
                 <div class="info-row">
                     <span class="info-label">Height</span>
-                    <span class="info-value"><?= htmlspecialchars($height) ?> cm</span>
+                    <span class="info-value"><?php echo $height;?> cm</span>
                 </div>
                 
                 <div class="info-row">
                     <span class="info-label">Sex</span>
-                    <span class="info-value"><?= htmlspecialchars($gender) ?></span>
+                    <span class="info-value"><?php echo $gender;?></span>
                 </div>
                 
                 <div class="info-row">
                     <span class="info-label">Age</span>
-                    <span class="info-value"><?= htmlspecialchars($age) ?> years</span>
+                    <span class="info-value"><?php echo $age?> years</span>
                 </div>
                 
                 <div class="info-row">
                     <span class="info-label">Activity Level</span>
-                    <span class="info-value"><?= htmlspecialchars($activityLevelDisplay) ?></span>
+                    <span class="info-value"><?php echo $activityLevelDisplay;?></span>
                 </div>
                 
                 <div class="highlight-box">
                     <h3>BMI Status</h3>
-                    <?php
-                    if (is_numeric($weight) && is_numeric($height)) {
-                        $bmi = $weight / (($height/100) * ($height/100));
-                        $bmiRounded = round($bmi, 1);
-                        
-                        if ($bmi < 18.5) {
-                            echo "Your BMI is $bmiRounded - Underweight";
-                        } elseif ($bmi < 25) {
-                            echo "Your BMI is $bmiRounded - Normal weight";
-                        } elseif ($bmi < 30) {
-                            echo "Your BMI is $bmiRounded - Overweight";
-                        } else {
-                            echo "Your BMI is $bmiRounded - Obese";
-                        }
-                    } else {
-                        echo "BMI calculation not available";
-                    }
-                    ?>
+                    <?php echo $bmi_message; ?>
                 </div>
             </div>
             
@@ -255,14 +187,14 @@ $activityLevelDisplay = ucfirst(strtolower($activityLevel));
                 <div class="info-row">
                     <span class="info-label">Basal Metabolic Rate (BMR)</span>
                     <span class="info-value">
-                        <?= is_numeric($bmr) ? htmlspecialchars(number_format($bmr)) : htmlspecialchars($bmr) ?> kcal/day
+                        <?php echo $bmr; ?> kcal/day
                     </span>
                 </div>
                 
                 <div class="info-row">
                     <span class="info-label">Maintenance Calories (TDEE)</span>
                     <span class="info-value">
-                        <?= is_numeric($tdee) ? htmlspecialchars(number_format($tdee)) : htmlspecialchars($tdee) ?> kcal/day
+                        <?php echo $tdee; ?> kcal/day
                     </span>
                 </div>
                 
@@ -295,7 +227,7 @@ $activityLevelDisplay = ucfirst(strtolower($activityLevel));
         </div>
         
         <div class="button-container">
-            <a href="/fitness-Bro/dashboard.php" class="back-button">
+            <a href="/dashboard" class="back-button">
                 <i class="fas fa-arrow-left"></i> Back to Dashboard
             </a>
         </div>

@@ -26,7 +26,7 @@
         private string $weight_preference;
 
 
-        const ACTIVITY_LEVELS = ["LOW", "MEDIUM", "HIGH"];
+        const ACTIVITY_LEVELS = ["SED", "LIGHT", "MEDIUM", "HEAVY", "ATHL"];
         const GENDERS = ["MALE", "FEMALE", "OTHER", "PNTS"]; 
         const WEIGHT_PREFERENCES = ["XLOSE", "LOSE", "MNTN", "GAIN", "XGAIN"];
 
