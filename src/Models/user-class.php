@@ -63,7 +63,6 @@
                 }
 
                 //set attribtues using __set validation
-                $this->__set("username", $username);
                 $this->__set("first_name", $first_name);
                 $this->__set("last_name", $last_name);
                 $this->__set("height", $height);
@@ -85,16 +84,22 @@
                 if(!isset($user_id)) {
                     do {
                         $generated_user_id = random_int(10000000, 99999999);
-                    } while ($this->checkIDInDB($generated_user_id));
+                    } while ($this->checkIDInDB(user_id: $generated_user_id));
                     $this->user_id = $generated_user_id;
+
+                    $this->__set("username", $username);
                 } else {
                     //if user_id has been set to an invalid value then throw an error
-                if(gettype($user_id) !== "integer" && isset($user_id)) {
-                    throw new InvalidArgumentException("User ID must be an integer");
-                } else {
-                    $this->user_id = $user_id;
+                    if(gettype($user_id) !== "integer" && isset($user_id)) {
+                        throw new InvalidArgumentException("User ID must be an integer");
+
+
+                    } else {
+                        $this->user_id = $user_id;
+                        $this->username = $username;
+                    }
                 }
-                }
+
         }
 
         //getters
@@ -118,6 +123,8 @@
                         throw new InvalidArgumentException("Username must be a string");
                     } elseif((strlen($value) > 32) || (strlen($value)) < 4) {
                         throw new InvalidArgumentException("Username must be less than 32 characters long and more than 4 characters long");
+                    } elseif (($this->checkIDInDB(username: $value))) {
+                        throw new InvalidArgumentException("Username is already in use");
                     }
                     $this->username = $value;
                     break;
@@ -226,7 +233,7 @@
 
         function saveToDB(){
             //This function will update the information in the database to match this data
-            if(self::checkIDInDB($this->user_id)) {
+            if(self::checkIDInDB(user_id: $this->user_id)) {
                 DBConnection::update(
                     sql: "  UPDATE users 
                             SET username = :username, first_name = :first_name, last_name = :last_name, password = :password, height = :height, weight = :weight, gender = :gender, dob = :dob, activity_level = :activity_level, body_fat_percent = :body_fat_percent, weight_preference = :weight_preference
@@ -250,17 +257,33 @@
             return password_verify($password, $this->password_checksum);
         }
 
-        static function checkIDInDB($user_id): bool {
-            $result = DBConnection::read(
-                sql: "SELECT user_id FROM users WHERE user_id = :user_id",
-                bound_parameters: [$user_id],
-                parameter_aliases: [":user_id"],
-            );
-            
-            if($result === False) {
-                return False;
+        static function checkIDInDB($user_id = null, $username = null): bool {
+            if ($user_id !== null) {
+                $result = DBConnection::read(
+                    sql: "SELECT user_id FROM users WHERE user_id = :user_id",
+                    bound_parameters: [$user_id],
+                    parameter_aliases: [":user_id"],
+                );
+                
+                if($result === False) {
+                    return False;
+                } else {
+                    return True;
+                }
+            } else if($username !== null) {
+                $result = DBConnection::read(
+                    sql: "SELECT user_id FROM users WHERE username = :username",
+                    bound_parameters: [$username],
+                    parameter_aliases: [":username"],
+                );
+                
+                if($result === False) {
+                    return False;
+                } else {
+                    return True;
+                }
             } else {
-                return True;
+                throw new InvalidArgumentException("You must specify a username or user_id");
             }
         }
 

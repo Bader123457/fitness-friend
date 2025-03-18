@@ -26,7 +26,8 @@ class LoginController {
         }
 
         // Check if error messages need to be displayed
-        $error_display = False;
+        $error_display = False; 
+        $success_display = False;
         if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET['error'])) {
             $error_display = True;
             $error_type = $_GET['error'];
@@ -48,9 +49,11 @@ class LoginController {
         }
 
         // Check register success
-        if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET['register_success'] && $_GET['register_success'] == 'True')) {
-            $success_display = True;
-            $success_msg = 'Register successful. Please try logging in.';
+        if ($_SERVER['REQUEST_METHOD'] === 'GET' && !empty($_GET['register_success'])) {
+            if ($_GET['register_success'] == 'True') {
+                $success_display = True;
+                $success_msg = 'Register successful. Please try logging in.';
+            }
         }
 
         // Load the view for the second website
