@@ -88,9 +88,11 @@
 
         <label for="activity"><b>Activity Level</b></label>
         <select name="activity" id="activity">
-            <option value="LOW" <?php if ($_SESSION['user']->activity_level == "LOW") echo "selected='selected'";?>>Low</option>
-            <option value="MEDIUM" <?php if ($_SESSION['user']->activity_level == "MEDIUM") echo "selected='selected'";?>>Medium</option>
-            <option value="HIGH" <?php if ($_SESSION['user']->activity_level == "HIGH") echo "selected='selected'";?>>High</option>
+            <option value="SED" <?php if ($_SESSION['user']->activity_level == "SED") echo "selected='selected'";?>>Sedentary</option>
+            <option value="LIGHT" <?php if ($_SESSION['user']->activity_level == "LIGHT") echo "selected='selected'";?>>Light Activity</option>
+            <option value="MEDIUM" <?php if ($_SESSION['user']->activity_level == "MEDIUM") echo "selected='selected'";?>>Medium Activity</option>
+            <option value="HEAVY" <?php if ($_SESSION['user']->activity_level == "HEAVY") echo "selected='selected'";?>>High Activity</option>
+            <option value="ATHL" <?php if ($_SESSION['user']->activity_level == "ATHL") echo "selected='selected'";?>>Athlete</option>
         </select>
         <br>
 

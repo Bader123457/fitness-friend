@@ -41,6 +41,8 @@
         .nav-buttons {
             display: flex;
             gap: 15px;
+            cursor: pointer;
+            user-select: none;
         }
 
         .nav-buttons a {

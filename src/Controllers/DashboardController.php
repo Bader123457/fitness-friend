@@ -18,6 +18,7 @@ class DashboardController {
         $login_uri = $this->appendUri . '/login';
         $logout_uri = '\''. $this->appendUri . '/login/logout'. '\'';
         $profile_uri = '\''. $this->appendUri . '/profile'. '\'';
+        $calorie_uri = '\''. $this->appendUri . '/calorie'. '\'';
 
         // Check user
         if (isset($_SESSION['user']) && $_SESSION['logged_in'] === true) {
