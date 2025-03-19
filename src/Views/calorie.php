@@ -11,7 +11,7 @@
             color: #e0e0e0;
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 0px;
             display: flex;
             justify-content: center;
             min-height: 100vh;
@@ -19,6 +19,7 @@
         
         h1 {
             color: #f5c518;
+            margin-top: 0px;
             margin-bottom: 30px;
             text-align: center;
             font-size: 24px;
@@ -30,6 +31,7 @@
             margin: 0 auto;
             padding: 0 20px;
             box-sizing: border-box;
+            align-content: center;
         }
         
         .dashboard {
@@ -138,6 +140,7 @@
             color: #000;
             border: none;
             padding: 10px 20px;
+            margin-bottom: 50px;
             font-size: 16px;
             border-radius: 4px;
             cursor: pointer;
@@ -150,9 +153,65 @@
         .back-button:hover {
             background-color: #e0b717;
         }
+
+        .sidebar {
+            background: #111;
+            color: gold;
+            padding: 20px;
+            width: 228px;
+            height: 100vh;
+        }
+
+        .sidebar h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: gold;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            padding: 15px 0;
+        }
+
+        .sidebar ul li a {
+            color: gold;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            transition: 0.3s;
+            display: block;
+            padding: 10px;
+        }
+
+        .sidebar ul li a:hover {
+            background: gold;
+            color: black;
+            border-radius: 5px;
+        }
+
+        .sidebar img{
+            display: flex;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
+    <div class="sidebar">
+        <img src="/assets/imgs/Logo.png" alt="FitnessBro Logo">
+        <h2>Username: <?php echo $welcome_display; ?></h2>
+        <ul>
+            <li><a href=<?php echo $dashboard_uri; ?>>Dashboard</a></li>
+            <li><a href=<?php echo $food_uri; ?>>Meal Plans</a></li>
+            <li><a href="#">Workout Plans</a></li>
+            <li><a href=<?php echo $profile_uri; ?>>Profile</a></li>
+            <li><a href=<?php echo $logout_uri; ?>>Logout</a></li>
+        </ul>
+    </div>
     <div class="container">
         <h1>Calorie Overview</h1>
         
@@ -237,7 +296,7 @@
         </div>
         
         <div class="button-container">
-            <a href="/dashboard" class="back-button">
+            <a href="<?php echo $dashboard_uri; ?>" class="back-button">
                 <i class="fas fa-arrow-left"></i> Back to Dashboard
             </a>
         </div>

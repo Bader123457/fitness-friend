@@ -16,7 +16,10 @@ class CalorieController {
         session_start();
 
         // Generate links 
-        $dashboard_uri = '\'' . $this->appendUri . '/dashboard' . '\'';
+        $dashboard_uri = $this->appendUri . '/dashboard';
+        $logout_uri = '\''. $this->appendUri . '/login/logout'. '\'';
+        $profile_uri = '\''. $this->appendUri . '/profile'. '\'';
+        $food_uri = '\'' . $this->appendUri . '/foodtracker' . '\'';    
 
         // Check user
         if (isset($_SESSION['user']) && $_SESSION['logged_in'] === true) {
@@ -24,6 +27,11 @@ class CalorieController {
             $_SESSION['user'] = User::getUser(user_id: $_SESSION['user']->user_id);
 
             // Variables for front end
+            try {
+                $welcome_display = $_SESSION['user']->username;
+            } catch (Exception $e) {
+                $welcome_display = 'ERROR';
+            }
             $weight = $_SESSION['user']->weight;
             $height = $_SESSION['user']->height;
             $gender = $_SESSION['user']->gender;
