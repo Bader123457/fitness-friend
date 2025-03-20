@@ -166,6 +166,7 @@
             font-size: 24px;
             font-weight: bold;
             margin-bottom: 20px;
+            padding-left: 60px;
             color: gold;
         }
 
@@ -203,7 +204,7 @@
 <body>
     <div class="sidebar">
         <img src="/assets/imgs/Logo.png" alt="FitnessBro Logo">
-        <h2>Username: <?php echo $welcome_display; ?></h2>
+        <h2> <?php echo $welcome_display; ?></h2>
         <ul>
             <li><a href=<?php echo $dashboard_uri; ?>>Dashboard</a></li>
             <li><a href=<?php echo $food_uri; ?>>Meal Plans</a></li>
