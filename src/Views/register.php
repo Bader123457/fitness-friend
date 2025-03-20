@@ -8,13 +8,11 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-
             background-image: url('/assets/imgs/gymphoto2.jpg');
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
             display: flex;
-
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -24,15 +22,27 @@
             background-color: #121212;
             padding: 40px;
             border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             width: 350px;
             text-align: center;
         }
 
         h2 {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             color: #f5c518;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            color: #f5c518;
+            display: block;
+            margin-bottom: 6px;
+            text-align: left;
         }
 
         input[type=text],
@@ -40,15 +50,15 @@
         input[type=password] {
             width: 100%;
             padding: 12px;
-            margin-bottom: 20px;
             border: 1px solid #444;
             background-color: #1a1a1a;
             color: white;
             border-radius: 5px;
             outline: none;
             transition: all 0.3s;
-
+            box-sizing: border-box;
         }
+        
         input[type=text]:focus, 
         input[type=email]:focus, 
         input[type=password]:focus {
@@ -56,33 +66,33 @@
             box-shadow: 0 0 15px rgba(245, 197, 24, 0.5);
         }
 
-        label {
-            color: #f5c518;
-        }
-
         button {
             background-color: #f5c518;
             color: #000000;
             border: none;
             padding: 12px;
-            margin-top: 10px;
+            margin-top: 20px;
             width: 100%;
             border-radius: 5px;
             cursor: pointer;
             transition: background 0.3s;
             font-size: 16px;
         }
+        
         button:hover {
-            background-color:#d4a316;
+            background-color: #d4a316;
         }
  
         .sign-up {
-            margin-top: 10px;
+            margin-top: 20px;
+            text-align: center;
         }
-        .sign-up a{
+        
+        .sign-up a {
             color: #f5c518;
             text-decoration: none;
         }
+        
         .sign-up a:hover {
             text-decoration: underline;
         }
@@ -109,23 +119,32 @@
     <h2>Register</h2>
     <?php if ($error_display === True) {include_once __DIR__ . '/error_msg_template.php';}?>
     <form action=<?php echo $validate_uri; ?> method="POST">
-        <label for="username">Username</label>
-        <input type="text" name="uname" id="username" required> 
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" name="uname" id="username" required>
+        </div>
  
-        <label for="email">Email</label>
-        <input type="email" name="email" id="email" required>   
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" required>
+        </div>
 
-        <label for="password">Password</label>
-        <input type="password" name="psw" id="password" required>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="psw" id="password" required>
+        </div>
 
-        <label for="confirm_password">Confirm Password</label>
-        <input type="password" name="cnfm-psw" id="confirm_password" required>
+        <div class="form-group">
+            <label for="confirm_password">Confirm Password</label>
+            <input type="password" name="cnfm-psw" id="confirm_password" required>
+        </div>
 
         <button type="submit">Register</button>
 
-        <button type="button" onclick = "window.location.href = <?php echo $home_uri; ?>;">Back</button>
+        <button type="button" onclick="window.location.href = <?php echo $home_uri; ?>;">Back</button>
+        
         <div class="sign-up">
-            <a href= <?php echo $login_uri; ?>>Have an account? Log In</a>
+            <a href=<?php echo $login_uri; ?>>Have an account? Log In</a>
         </div>
     </form>
 </div>

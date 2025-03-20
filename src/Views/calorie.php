@@ -1,54 +1,3 @@
-<?php
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
-if (!isset($_SESSION["user"])) {
-    die("Error: User not logged in.");
-}
-
-$dashboard_uri = $_SERVER['DOCUMENT_ROOT'] . "/fitness-Bro/dashboard.php";
-
-// Extract user data
-$user = $_SESSION["user"];
-
-$weight = $user->weight;
-$height = $user->height;
-$gender = ucfirst(strtolower($user->gender)); // Normalize case
-$dob = new DateTime($user->dob);
-$today = new DateTime();
-$age = ($dob->format('Y') == "0000") ? "Unknown" : $today->diff($dob)->y;
-$activityLevel = strtoupper($user->activity_level); // Ensure case consistency
-
-// BMR Calculation
-if ($age === "Unknown") {
-    $bmr = "Unknown (Invalid DOB)";
-} else {
-    if ($gender === "Male") {
-        $bmr = (10 * $weight) + (6.25 * $height) - (5 * $age) + 5;
-    } elseif ($gender === "Female") {
-        $bmr = (10 * $weight) + (6.25 * $height) - (5 * $age) - 161;
-    } else {
-        $bmr = "Unknown (Invalid Gender)";
-    }
-}
-
-// Activity level multipliers for TDEE
-$activityLevels = [
-    "SEDENTARY" => 1.2,      
-    "LIGHT" => 1.375,        
-    "MEDIUM" => 1.55,        
-    "HEAVY" => 1.725,        
-    "ATHLETE" => 1.9         
-];
-
-// Calculate TDEE (Total Daily Energy Expenditure)
-$tdee = isset($activityLevels[$activityLevel]) ? round($bmr * $activityLevels[$activityLevel]) : "Unknown (Invalid Activity Level)";
-
-// Format activity level for display
-$activityLevelDisplay = ucfirst(strtolower($activityLevel));
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,25 +11,35 @@ $activityLevelDisplay = ucfirst(strtolower($activityLevel));
             color: #e0e0e0;
             font-family: Arial, sans-serif;
             margin: 0;
-            padding: 20px;
+            padding: 0px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
         }
         
         h1 {
             color: #f5c518;
+            margin-top: 0px;
             margin-bottom: 30px;
             text-align: center;
             font-size: 24px;
         }
         
         .container {
-            max-width: 900px;
+            width: 100%;
+            max-width: 1000px;
             margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+            align-content: center;
         }
         
         .dashboard {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 30px;
+            width: 100%;
+            justify-content: center;
         }
         
         @media (max-width: 700px) {
@@ -94,7 +53,9 @@ $activityLevelDisplay = ucfirst(strtolower($activityLevel));
             border-radius: 6px;
             padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.7);
+            width: 100%;
+            box-sizing: border-box;
         }
         
         .card h2 {
@@ -152,7 +113,7 @@ $activityLevelDisplay = ucfirst(strtolower($activityLevel));
         .progress-fill {
             height: 100%;
             background-color: #f5c518;
-            width: <?= min(100, ($bmr !== "Unknown (Invalid Gender)" && $tdee !== "Unknown (Invalid Activity Level)") ? round(($bmr / $tdee) * 100) : 0) ?>%;
+            width: <?php echo (string)$progress_width . '%';?>;
         }
         
         .bar-labels {
@@ -179,6 +140,7 @@ $activityLevelDisplay = ucfirst(strtolower($activityLevel));
             color: #000;
             border: none;
             padding: 10px 20px;
+            margin-bottom: 50px;
             font-size: 16px;
             border-radius: 4px;
             cursor: pointer;
@@ -191,9 +153,66 @@ $activityLevelDisplay = ucfirst(strtolower($activityLevel));
         .back-button:hover {
             background-color: #e0b717;
         }
+
+        .sidebar {
+            background: #111;
+            color: gold;
+            padding: 20px;
+            width: 228px;
+            height: 100vh;
+        }
+
+        .sidebar h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-left: 60px;
+            color: gold;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            padding: 15px 0;
+        }
+
+        .sidebar ul li a {
+            color: gold;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            transition: 0.3s;
+            display: block;
+            padding: 10px;
+        }
+
+        .sidebar ul li a:hover {
+            background: gold;
+            color: black;
+            border-radius: 5px;
+        }
+
+        .sidebar img{
+            display: flex;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
+    <div class="sidebar">
+        <img src="/assets/imgs/Logo.png" alt="FitnessBro Logo">
+        <h2> <?php echo $welcome_display; ?></h2>
+        <ul>
+            <li><a href=<?php echo $dashboard_uri; ?>>Dashboard</a></li>
+            <li><a href=<?php echo $food_uri; ?>>Meal Plans</a></li>
+            <li><a href="#">Workout Plans</a></li>
+            <li><a href=<?php echo $profile_uri; ?>>Profile</a></li>
+            <li><a href=<?php echo $logout_uri; ?>>Logout</a></li>
+        </ul>
+    </div>
     <div class="container">
         <h1>Calorie Overview</h1>
         
@@ -203,49 +222,32 @@ $activityLevelDisplay = ucfirst(strtolower($activityLevel));
                 
                 <div class="info-row">
                     <span class="info-label">Weight</span>
-                    <span class="info-value"><?= htmlspecialchars($weight) ?> kg</span>
+                    <span class="info-value"><?php echo $weight;?> kg</span>
                 </div>
                 
                 <div class="info-row">
                     <span class="info-label">Height</span>
-                    <span class="info-value"><?= htmlspecialchars($height) ?> cm</span>
+                    <span class="info-value"><?php echo $height;?> cm</span>
                 </div>
                 
                 <div class="info-row">
                     <span class="info-label">Sex</span>
-                    <span class="info-value"><?= htmlspecialchars($gender) ?></span>
+                    <span class="info-value"><?php echo $gender;?></span>
                 </div>
                 
                 <div class="info-row">
                     <span class="info-label">Age</span>
-                    <span class="info-value"><?= htmlspecialchars($age) ?> years</span>
+                    <span class="info-value"><?php echo $age?> years</span>
                 </div>
                 
                 <div class="info-row">
                     <span class="info-label">Activity Level</span>
-                    <span class="info-value"><?= htmlspecialchars($activityLevelDisplay) ?></span>
+                    <span class="info-value"><?php echo $activityLevelDisplay;?></span>
                 </div>
                 
                 <div class="highlight-box">
                     <h3>BMI Status</h3>
-                    <?php
-                    if (is_numeric($weight) && is_numeric($height)) {
-                        $bmi = $weight / (($height/100) * ($height/100));
-                        $bmiRounded = round($bmi, 1);
-                        
-                        if ($bmi < 18.5) {
-                            echo "Your BMI is $bmiRounded - Underweight";
-                        } elseif ($bmi < 25) {
-                            echo "Your BMI is $bmiRounded - Normal weight";
-                        } elseif ($bmi < 30) {
-                            echo "Your BMI is $bmiRounded - Overweight";
-                        } else {
-                            echo "Your BMI is $bmiRounded - Obese";
-                        }
-                    } else {
-                        echo "BMI calculation not available";
-                    }
-                    ?>
+                    <?php echo $bmi_message; ?>
                 </div>
             </div>
             
@@ -255,14 +257,14 @@ $activityLevelDisplay = ucfirst(strtolower($activityLevel));
                 <div class="info-row">
                     <span class="info-label">Basal Metabolic Rate (BMR)</span>
                     <span class="info-value">
-                        <?= is_numeric($bmr) ? htmlspecialchars(number_format($bmr)) : htmlspecialchars($bmr) ?> kcal/day
+                        <?php echo $bmr; ?> kcal/day
                     </span>
                 </div>
                 
                 <div class="info-row">
                     <span class="info-label">Maintenance Calories (TDEE)</span>
                     <span class="info-value">
-                        <?= is_numeric($tdee) ? htmlspecialchars(number_format($tdee)) : htmlspecialchars($tdee) ?> kcal/day
+                        <?php echo $tdee; ?> kcal/day
                     </span>
                 </div>
                 
@@ -295,10 +297,10 @@ $activityLevelDisplay = ucfirst(strtolower($activityLevel));
         </div>
         
         <div class="button-container">
-            <a href="/fitness-Bro/dashboard.php" class="back-button">
+            <a href="<?php echo $dashboard_uri; ?>" class="back-button">
                 <i class="fas fa-arrow-left"></i> Back to Dashboard
             </a>
         </div>
     </div>
 </body>
-</html>v
+</html>
