@@ -16,6 +16,7 @@ class WorkoutController {
 
         // Construct Links
         $login_uri = $this->appendUri . '/login';
+        $search_compendium_uri = '\'' . $this->appendUri . '/workout/search_compendium' . '\'';
 
         // Check User
         if (isset($_SESSION['user']) && $_SESSION['logged_in'] === true) {
@@ -23,6 +24,23 @@ class WorkoutController {
             $_SESSION['user'] = User::getUser(user_id: $_SESSION['user']->user_id);
 
             require_once __DIR__ . '/../Views/workout.php';
+        } else {
+            header('Location: '. $login_uri);
+            die();   
+        }
+    }
+
+    public function search_compendium() {
+        require_once __DIR__ . "/../Models/physical-activity-class.php";
+        $login_uri = $this->appendUri . '/login';
+
+        if (isset($_POST['activity_search'])) {
+            $activitySearch = $_POST['activity_search'];
+            $category = $_POST['category'];
+
+            $result = search_physical_activities($category, $activitySearch);
+
+            echo json_encode($result);
         } else {
             header('Location: '. $login_uri);
             die();   

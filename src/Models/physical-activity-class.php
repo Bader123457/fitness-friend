@@ -37,7 +37,7 @@
         $data = DBConnection::readMany(
             sql: "  SELECT *, MATCH(description) AGAINST(:search_string WITH QUERY EXPANSION) AS relevance 
                     FROM compendium_of_physical_activities 
-                    WHERE category = :category 
+                    WHERE (:category = '*' OR category = :category) 
                     AND (MATCH(description) AGAINST(:search_string WITH QUERY EXPANSION) OR description LIKE CONCAT('%', :search_string, '%'))
                     ORDER BY relevance DESC",
             bound_parameters: [$category, $search_string],
