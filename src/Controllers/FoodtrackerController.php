@@ -5,6 +5,9 @@ require_once __DIR__ ."/../Models/db-llf.php";
 class FoodtrackerController {
     public $appendUri = '';
     function index() {
+        // Include class
+        require_once __DIR__ . '/../Models/user-class.php';
+
         // Get session
         session_set_cookie_params([
             'lifetime' => 86400, // 1 day
@@ -22,6 +25,9 @@ class FoodtrackerController {
 
         // Check if login session already exists
         if (isset($_SESSION['user']) && $_SESSION['logged_in'] === true) {
+            // Refresh user information
+            $_SESSION['user'] = User::getUser(user_id: $_SESSION['user']->user_id);
+            
             $welcome_display = $_SESSION['user']->username;
             require_once __DIR__ . '/../Views/foodtracker.php';
         } else {
