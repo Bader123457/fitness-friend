@@ -1,4 +1,4 @@
-# FitnessBro website
+# FitnessBro website - First year team project 2025 - Tutor Group Z14
 
 This is a PHP website that:
 - Calculates daily calorie expenditure
@@ -8,6 +8,14 @@ This is a PHP website that:
 - Searches the Compendium of Physical Activities to calculate calories burned from performing certain Activities
 - Provide guides on workout plans and videos
 - Allows users to login and record their body information (e.g. weight, height) that could be used by the functions above
+
+Team members:
+- Elliot Holbrook
+- Akshit Palamthody
+- Yi Xuan Phoon
+- Badreldin
+- Armaan Ahmed
+- Youssef Abouelnasr
 
 Tech stack:
 - Backend:
