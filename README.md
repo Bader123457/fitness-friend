@@ -36,3 +36,6 @@
 - public - Where the main page index.php is
     - This file handles every requests to the server and reroutes all URL to the correct controllers
 - src - Source code, its split into Models (backend logic), Views (frontend html and display), Controllers (links frontend and backend)
+
+## Credentials:
+- Make sure db-credentials.env and nutritionix-credentials have the proper credentials to access both the database and the Nutritionix API
