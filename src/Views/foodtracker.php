@@ -47,84 +47,158 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['food'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Food Nutrition Tracker</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0px;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            background: #111;
+            color: gold;
+            padding: 20px;
+            width: 281px;
+            height: 100vh;
+        }
+
+        .sidebar h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-left: 60px;
+            color: gold;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            padding: 15px 0;
+        }
+
+        .sidebar ul li a {
+            color: gold;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            transition: 0.3s;
+            display: block;
+            padding: 10px;
+        }
+
+        .sidebar ul li a:hover {
+            background: gold;
+            color: black;
+            border-radius: 5px;
+        }
+
+        .sidebar img{
+            display: flex;
+            width: 100%;
+        }
+    </style>
 </head>
-<body>
+<body style="display: flex; margin: 0px;">
+    <div class="sidebar">
+        <img src="/assets/imgs/Logo.png" alt="FitnessBro Logo">
+        <h2> <?php echo $welcome_display; ?></h2>
+        <ul>
+            <li><a href=<?php echo $dashboard_uri; ?>>Dashboard</a></li>
+            <li><a href=<?php echo $calorie_uri; ?>>Calorie Calculator</a></li>
+            <li><a href="#">Workout Plans</a></li>
+            <li><a href=<?php echo $profile_uri; ?>>Profile</a></li>
+            <li><a href=<?php echo $logout_uri; ?>>Logout</a></li>
+        </ul>
+    </div>
+    <div style="width: 100%; margin: 10px;">
+        <div style="width: 50%; float: left;">
+            <form>
+                <input type="date" id="date_selector">
+                <select name="entry_type" id="entry_type_selector">
+                    <option value="brk">Breakfast</option>
+                    <option value="lnc">Lunch</option>
+                    <option value="dnr">Dinner</option>
+                    <option value="snk">Snak</option>
+                </select>
+            </form>
 
-    <form>
-        <input type="date" id="date_selector">
-        <select name="entry_type" id="entry_type_selector">
-            <option value="brk">Breakfast</option>
-            <option value="lnc">Lunch</option>
-            <option value="dnr">Dinner</option>
-            <option value="snk">Snak</option>
-        </select>
-    </form>
+            <h2>Enter Food to See Nutrition Facts</h2>
+            <form method="POST" id="entry_form">
+                <input type="text" name="food" placeholder="e.g., 1 banana, 2 eggs" required>
+                <button type="submit">Get Nutrition Facts</button>
+            </form>
 
-    <h2>Enter Food to See Nutrition Facts</h2>
-    <form method="POST" id="entry_form">
-        <input type="text" name="food" placeholder="e.g., 1 banana, 2 eggs" required>
-        <button type="submit">Get Nutrition Facts</button>
-    </form>
+            <?php if (!empty($result) && !isset($result["error"])): ?>
+                <h3>Nutrition Facts for: <?= htmlspecialchars($food) ?></h3>
+                <table border="1" cellpadding="5" cellspacing="0">
+                    <tr>
+                        <th>Food Item</th>
+                        <th>Calories</th>
+                        <th>Protein (g)</th>
+                        <th>Fats (g)</th>
+                        <th>Carbs (g)</th>
+                        <th></th>
+                    </tr>
+                    <?php foreach ($result["foods"] as $foodItem): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($foodItem["serving_weight_grams"] . "g of " . $foodItem["food_name"]) ?></td>
+                            <td><?= $foodItem["nf_calories"] ?></td>
+                            <td><?= $foodItem["nf_protein"] ?></td>
+                            <td><?= $foodItem["nf_total_fat"] ?></td>
+                            <td><?= $foodItem["nf_total_carbohydrate"] ?></td>
+                            <td><button onclick="transfer_food_item(this)">+</button></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+            <?php elseif (!empty($result["error"])): ?>
+                <p style="color: red;">Error: <?= $result["error"] ?> (HTTP <?= $result["status"] ?>)</p>
+            <?php endif; ?>
+            <br>
+            <h3>Your Food:</h3>
+            <table border="1" cellpadding="5" cellspacing="0" id="eaten_table">
+                    <tr>
+                        <th>Food Item</th>
+                        <th>Calories (cal)</th>
+                        <th>Protein (g)</th>
+                        <th>Fats (g)</th>
+                        <th>Carbs (g)</th>
+                        <th></th>
+                    </tr>
+                    <tr id="total_row">
+                        <td>Total</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+            </table>
+            <br>
+            <span style="display: none;" id="loading">loading...</span>
 
-    <?php if (!empty($result) && !isset($result["error"])): ?>
-        <h3>Nutrition Facts for: <?= htmlspecialchars($food) ?></h3>
-        <table border="1" cellpadding="5" cellspacing="0">
+            <table style="display: none;" id="template_row_table">
             <tr>
-                <th>Food Item</th>
-                <th>Calories</th>
-                <th>Protein (g)</th>
-                <th>Fats (g)</th>
-                <th>Carbs (g)</th>
-                <th></th>
-            </tr>
-            <?php foreach ($result["foods"] as $foodItem): ?>
-                <tr>
-                    <td><?= htmlspecialchars($foodItem["serving_weight_grams"] . "g of " . $foodItem["food_name"]) ?></td>
-                    <td><?= $foodItem["nf_calories"] ?></td>
-                    <td><?= $foodItem["nf_protein"] ?></td>
-                    <td><?= $foodItem["nf_total_fat"] ?></td>
-                    <td><?= $foodItem["nf_total_carbohydrate"] ?></td>
-                    <td><button onclick="transfer_food_item(this)">+</button></td>
-                </tr>
-            <?php endforeach; ?>
-        </table>
-    <?php elseif (!empty($result["error"])): ?>
-        <p style="color: red;">Error: <?= $result["error"] ?> (HTTP <?= $result["status"] ?>)</p>
-    <?php endif; ?>
-    <br>
-    <h3>Your Food:</h3>
-    <table border="1" cellpadding="5" cellspacing="0" id="eaten_table">
-            <tr>
-                <th>Food Item</th>
-                <th>Calories (cal)</th>
-                <th>Protein (g)</th>
-                <th>Fats (g)</th>
-                <th>Carbs (g)</th>
-                <th></th>
-            </tr>
-            <tr id="total_row">
-                <td>Total</td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-    </table>
-    <br>
-    <span style="display: none;" id="loading">loading...</span>
-
-    <table style="display: none;" id="template_row_table">
-    <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-    </table>
-
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+            </table>
+        </div>
+        <div style="margin-left: 50%;">
+            <?php FoodtrackerController::displayMealPlan(); ?>
+        </div>
+    </div>
 </body>
 <footer>
     <script src="../../assets/js/cookies.js"></script>
