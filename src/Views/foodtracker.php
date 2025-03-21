@@ -131,6 +131,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['food'])) {
             </form>
 
             <h2>Enter Food to See Nutrition Facts</h2>
+            <h3 style="color:greenyellow">Powered by Nutritionix</h3>
             <form method="POST" id="entry_form">
                 <input type="text" name="food" placeholder="e.g., 1 banana, 2 eggs" required>
                 <button type="submit">Get Nutrition Facts</button>
