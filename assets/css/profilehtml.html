@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            margin: 0;
+            padding: 20px;
+            color: #fff;
+            position: relative;
+            overflow-y: auto; /* Enables vertical scrolling */
+            overflow-x: hidden;
+            height: 100vh; /* Ensures the body takes up full viewport height */
+        }
+
+        /* Mirror Light Effect on Vertical Edges */
+        body::before, body::after {
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 100%;
+            top: 0;
+            pointer-events: none;
+            background: linear-gradient(to right, rgba(255, 215, 0, 0.4) 0%, rgba(0,0,0,0) 60%);
+            z-index: -1;
+        }
+        body::before {
+            left: 0;
+        }
+        body::after {
+            right: 0;
+            transform: scaleX(-1);
+        }
+        
+        .container {
+            max-width: 600px;
+            background: #1e1e1e;
+            padding: 20px;
+            margin: 20px auto; /* Adds margin for better spacing */
+            border-radius: 8px;
+            box-shadow: 0px 0px 20px rgba(255, 215, 0, 0.6);
+            border: 2px solid gold;
+            position: relative;
+            z-index: 1;
+        }
+        h2 {
+            text-align: center;
+            color: gold;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-top: 10px;
+            font-weight: bold;
+            color: gold;
+        }
+        input, select {
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid gold;
+            border-radius: 4px;
+            background: #222;
+            color: #fff;
+        }
+        button {
+            margin-top: 15px;
+            background: gold;
+            color: black;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        button:hover {
+            background: #d4af37;
+        }
+        .error, .success {
+            text-align: center;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 4px;
+        }
+        .error { background: #721c24; color: #f8d7da; }
+        .success { background: #155724; color: #d4edda; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Edit Profile</h2>
+        
+        <div id="message"></div>
+        
+        <form id="usernameForm">
+            <label for="username">Change Username</label>
+            <input type="text" id="username" name="username">
+            <button type="submit">Change Username</button>
+        </form>
+
+        <form id="passwordForm">
+            <label for="oldPassword">Old Password</label>
+            <input type="password" id="oldPassword" name="oldPassword">
+            <label for="newPassword">New Password</label>
+            <input type="password" id="newPassword" name="newPassword">
+            <label for="confirmPassword">Confirm New Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword">
+            <button type="submit">Change Password</button>
+        </form>
+
+        <form id="infoForm">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" name="firstName">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" name="lastName">
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" name="dob">
+            <label for="gender">Gender</label>
+            <select name="gender" id="gender">
+                <option value="MALE">Male</option>
+                <option value="FEMALE">Female</option>
+                <option value="OTHER">Others</option>
+                <option value="PNTS">Prefer Not To Say</option>
+            </select>
+            <label for="height">Height (cm)</label>
+            <input type="number" id="height" name="height" min="0" step="1">
+            <label for="weight">Weight (kg)</label>
+            <input type="number" id="weight" name="weight" min="0" step="1">
+            <label for="bfp">Body Fat Percentage (%)</label>
+            <input type="number" id="bfp" name="bfp" min="0" step="1">
+            <label for="activity">Activity Level</label>
+            <select name="activity" id="activity">
+                <option value="SED">Sedentary</option>
+                <option value="LIGHT">Light Activity</option>
+                <option value="MEDIUM">Medium Activity</option>
+                <option value="HEAVY">High Activity</option>
+                <option value="ATHL">Athlete</option>
+            </select>
+            <label for="weight_preference">Weight Preference</label>
+            <select name="weight_preference" id="weight_preference">
+                <option value="XLOSE">Intensive Weight Loss</option>
+                <option value="LOSE">Lose Weight</option>
+                <option value="MNTN">Maintain Weight</option>
+                <option value="GAIN">Gain Weight</option>
+                <option value="XGAIN">Intensive Weight Gain</option>
+            </select>
+            <button type="submit">Update Info</button>
+        </form>
+    </div>
+</body>
+</html>
