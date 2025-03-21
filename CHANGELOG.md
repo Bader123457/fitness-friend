@@ -1,5 +1,18 @@
 # Change Log
 
+## [10/03/2025] Added initial backend code for Foodtracker page - Badr
+
+### Added
+
+- Added testing code for Foodtracker page's backend to connect to Nutritionix API
+
+## [08/03/2025] Added frontend for Login and Register page - Yi Xuan, Akshit
+
+### Added
+
+- Added frontend for Login and Register page
+    - Frontend implemented into the website at 10/03/2025
+
 ## [04/03/2025] Fixed wrong error display for Register page, Fixed button being swapped for Home page - Yi Xuan
 
 ### Fixed
