@@ -7,17 +7,17 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #121212;
+            display: flex;
+            background-color: #1a1a1a;
             margin: 0;
-            padding: 20px;
+            padding: 0px;
             color: #fff;
             position: relative;
             overflow-y: auto; /* Enables vertical scrolling */
             overflow-x: hidden;
-            height: 100vh; /* Ensures the body takes up full viewport height */
+            height: 100%; /* Ensures the body takes up full viewport height */
         }
 
-        
         body::before {
             left: 0;
         }
@@ -27,11 +27,13 @@
         }
         
         .container {
-            max-width: 600px;
-            
             background: #1e1e1e;
+            width: 100%;
             padding: 20px;
-            margin: 20px auto; /* Adds margin for better spacing */
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 15%;
+            margin-right: 15%;
             border-radius: 8px;
             box-shadow: 0px 0px 20px rgba(255, 215, 0, 0.6);
             border: 2px solid gold;
@@ -86,9 +88,66 @@
         .error { background: #721c24; color: #f8d7da; }
         .success { background: #155724; color: #d4edda; }
         .message h3 { margin-top: 20px ; margin-bottom: 0px;}
+        .sidebar {
+            background: #111;
+            color: gold;
+            padding: 20px;
+            width: 30.2%;
+            height: 1180px;
+        }
+
+        .sidebar h2 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding-left: 60px;
+            text-align: left;
+            color: gold;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar ul li {
+            padding: 15px 0;
+        }
+
+        .sidebar ul li a {
+            color: gold;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 16px;
+            transition: 0.3s;
+            display: block;
+            padding: 10px;
+        }
+
+        .sidebar ul li a:hover {
+            background: gold;
+            color: black;
+            border-radius: 5px;
+        }
+
+        .sidebar img{
+            display: flex;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
+    <div class="sidebar">
+        <img src="/assets/imgs/Logo.png" alt="FitnessBro Logo">
+        <h2> <?php echo $welcome_display; ?></h2>
+        <ul>
+            <li><a href=<?php echo $dashboard_uri; ?>>Dashboard</a></li>
+            <li><a href=<?php echo $calorie_uri; ?>>Calorie Calculator</a></li>
+            <li><a href=<?php echo $food_uri; ?>>Meal Plans</a></li>
+            <li><a href=<?php echo $workout_uri; ?>>Workout Plans</a></li>
+            <li><a href=<?php echo $logout_uri; ?>>Logout</a></li>
+        </ul>
+    </div>
     <div class="container">
 
         <h2>Edit Profile</h2>

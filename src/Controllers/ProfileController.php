@@ -20,6 +20,10 @@ class ProfileController {
         $change_username_uri = '\'' . $this->appendUri . '/profile/change_username' . '\'';
         $change_personal_information_uri = '\'' . $this->appendUri . '/profile/change_personal_information' . '\'';
         $dashboard_uri = '\'' . $this->appendUri . '/dashboard' . '\'';
+        $logout_uri = '\''. $this->appendUri . '/login/logout'. '\'';
+        $calorie_uri = '\'' . $this->appendUri . '/calorie' . '\'';
+        $food_uri = '\'' . $this->appendUri . '/foodtracker' . '\'';  
+        $workout_uri = '\'' . $this->appendUri . '/workout' . '\''; 
 
         /* 
         Error and Success message check and display 
@@ -134,6 +138,12 @@ class ProfileController {
         if (isset($_SESSION['user']) && $_SESSION['logged_in'] === true) {
             // Refresh user information
             $_SESSION['user'] = User::getUser(user_id: $_SESSION['user']->user_id);
+
+            try {
+                $welcome_display = $_SESSION['user']->username;
+            } catch (Exception $e) {
+                $welcome_display = 'ERROR';
+            }
 
             // Load the view for the first website
             require_once __DIR__ . '/../Views/profile.php';
