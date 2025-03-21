@@ -17,17 +17,7 @@
             height: 100vh; /* Ensures the body takes up full viewport height */
         }
 
-        /* Mirror Light Effect on Vertical Edges */
-        body::before, body::after {
-            content: "";
-            position: absolute;
-            width: 10px;
-            height: 100%;
-            top: 0;
-            pointer-events: none;
-            background: linear-gradient(to right, rgba(255, 215, 0, 0.4) 0%, rgba(0,0,0,0) 60%);
-            z-index: -1;
-        }
+        
         body::before {
             left: 0;
         }
@@ -38,6 +28,7 @@
         
         .container {
             max-width: 600px;
+            
             background: #1e1e1e;
             padding: 20px;
             margin: 20px auto; /* Adds margin for better spacing */
