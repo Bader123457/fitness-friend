@@ -1,6 +1,6 @@
 # FitnessBro website - First year team project 2025 - Tutor Group Z14
 
-This is a PHP website that:
+## This is a PHP website that:
 - Calculates daily calorie expenditure
 - Searches the Nutritionix API to get food nutrition data
 - Lets users store a record of their meal plans/food eaten
@@ -9,7 +9,7 @@ This is a PHP website that:
 - Provide guides on workout plans and videos
 - Allows users to login and record their body information (e.g. weight, height) that could be used by the functions above
 
-Team members:
+## Team members:
 - Elliot Holbrook
 - Akshit Palamthody
 - Yi Xuan Phoon
@@ -17,7 +17,7 @@ Team members:
 - Armaan Ahmed
 - Youssef Abouelnasr
 
-Tech stack:
+## Tech stack:
 - Backend:
     - PHP (vanilla)
     - MySQL Database
@@ -29,7 +29,7 @@ Tech stack:
     - CSS
     - JavaScript (vanilla)
 
-Directory structure:
+## Directory structure:
 - assets - Where we put assets and images
 - config - Where we put credentials to the database and Nutritionix API
 - database - Where we put the schema for MySQL database
