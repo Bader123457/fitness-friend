@@ -17,11 +17,22 @@ class WorkoutController {
         // Construct Links
         $login_uri = $this->appendUri . '/login';
         $search_compendium_uri = '\'' . $this->appendUri . '/workout/search_compendium' . '\'';
+        $dashboard_uri = '\'' . $this->appendUri . '/dashboard' . '\'';
+        $logout_uri = '\''. $this->appendUri . '/login/logout'. '\'';
+        $calorie_uri = '\'' . $this->appendUri . '/calorie' . '\'';
+        $food_uri = '\'' . $this->appendUri . '/foodtracker' . '\'';  
+        $profile_uri = '\''. $this->appendUri . '/profile'. '\'';
 
         // Check User
         if (isset($_SESSION['user']) && $_SESSION['logged_in'] === true) {
             // Refresh user information
             $_SESSION['user'] = User::getUser(user_id: $_SESSION['user']->user_id);
+
+            try {
+                $welcome_display = $_SESSION['user']->username;
+            } catch (Exception $e) {
+                $welcome_display = 'ERROR';
+            }
 
             require_once __DIR__ . '/../Views/workout.php';
         } else {
