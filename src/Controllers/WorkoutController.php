@@ -14,6 +14,9 @@ class WorkoutController {
         ]);
         session_start();
 
+        // Construct Links
+        $login_uri = $this->appendUri . '/login';
+
         // Check User
         if (isset($_SESSION['user']) && $_SESSION['logged_in'] === true) {
             // Refresh user information

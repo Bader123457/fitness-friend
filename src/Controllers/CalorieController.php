@@ -19,7 +19,8 @@ class CalorieController {
         $dashboard_uri = $this->appendUri . '/dashboard';
         $logout_uri = '\''. $this->appendUri . '/login/logout'. '\'';
         $profile_uri = '\''. $this->appendUri . '/profile'. '\'';
-        $food_uri = '\'' . $this->appendUri . '/foodtracker' . '\'';    
+        $food_uri = '\'' . $this->appendUri . '/foodtracker' . '\'';  
+        $workout_uri = '\'' . $this->appendUri . '/workout' . '\'';  
 
         // Check user
         if (isset($_SESSION['user']) && $_SESSION['logged_in'] === true) {

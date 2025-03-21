@@ -22,12 +22,13 @@ class FoodtrackerController {
         $logout_uri = '\''. $this->appendUri . '/login/logout'. '\'';
         $profile_uri = '\''. $this->appendUri . '/profile'. '\'';
         $calorie_uri = '\'' . $this->appendUri . '/calorie' . '\'';
+        $workout_uri = '\'' . $this->appendUri . '/workout' . '\'';
 
         // Check if login session already exists
         if (isset($_SESSION['user']) && $_SESSION['logged_in'] === true) {
             // Refresh user information
             $_SESSION['user'] = User::getUser(user_id: $_SESSION['user']->user_id);
-            
+
             $welcome_display = $_SESSION['user']->username;
             require_once __DIR__ . '/../Views/foodtracker.php';
         } else {

@@ -113,7 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && !empty($_POST['food'])) {
         <ul>
             <li><a href=<?php echo $dashboard_uri; ?>>Dashboard</a></li>
             <li><a href=<?php echo $calorie_uri; ?>>Calorie Calculator</a></li>
-            <li><a href="#">Workout Plans</a></li>
+            <li><a href=<?php echo $workout_uri; ?>>Workout Plans</a></li>
             <li><a href=<?php echo $profile_uri; ?>>Profile</a></li>
             <li><a href=<?php echo $logout_uri; ?>>Logout</a></li>
         </ul>

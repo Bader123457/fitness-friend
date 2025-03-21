@@ -261,7 +261,7 @@
                     <p>Get a meal plan based on your fitness goal.</p>
                 </button>
 
-                <button class="main_button" id="workout">
+                <button class="main_button" onclick="window.location.href = <?php echo $workout_uri; ?>" id="workout">
                     <i class="fas fa-dumbbell fa-2x"></i>
                     <h2>Workout Plans</h2>
                     <p>Select your training days and view guided workout videos.</p>
