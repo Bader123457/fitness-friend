@@ -153,9 +153,6 @@
 
         <button type="button" onclick="window.location.href = <?php echo $home_uri; ?>;">Back</button>
 
-        <div class="forgot-password">
-            <a href="#">Forgot your password?</a>
-        </div>
         <div class="sign-up">
             <a href=<?php echo $register_uri; ?>>Don't have an account? Register now</a>
         </div>
